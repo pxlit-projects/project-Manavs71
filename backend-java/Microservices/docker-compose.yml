@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: my-mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: employeeservice_db
+    ports:
+      - "3306:3306"
+    networks:
+      - springboot-network
+
+networks:
+  springboot-network:
+    driver: bridge
