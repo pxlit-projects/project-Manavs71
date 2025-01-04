@@ -7,6 +7,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>org.example</groupId>
     <artifactId>discovery-service</artifactId>
     <packaging>jar</packaging>
 

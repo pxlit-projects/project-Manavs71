@@ -4,6 +4,7 @@ import org.example.DTO.PostDTO;
 import org.example.DTO.PostResponseDTO;
 import org.example.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,28 @@ public class PostController {
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
     public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostDTO postDTO) {
         PostResponseDTO postResponse = postService.createPost(postDTO);
-        return ResponseEntity.ok(postResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(postResponse);
     }
+
+    @PostMapping(value ="/createDraft", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<PostResponseDTO> createDraft(@RequestBody PostDTO postDTO) {
+        PostResponseDTO draftRespone = postService.createDraft(postDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(draftRespone);
+    }
+
+
+
 
 
     @PostMapping("/draft/{postId}")
     public ResponseEntity<PostResponseDTO> savePostAsDraft(@PathVariable Long postId) {
         PostResponseDTO postResponse = postService.saveAsDraft(postId);
+        return ResponseEntity.ok(postResponse);
+    }
+
+    @PostMapping("/publish/{postId}")
+    public ResponseEntity<PostResponseDTO> publishPost(@PathVariable Long postId) {
+        PostResponseDTO postResponse = postService.publish(postId);
         return ResponseEntity.ok(postResponse);
     }
 

@@ -1,32 +1,16 @@
 package org.example.DTO;
 
-import org.example.domain.PostStatus;
-
 import java.time.LocalDateTime;
 
-public class PostResponseDTO {
-
+public class PostDTO {
     private Long id;
     private String title;
     private String content;
     private String author;
     private LocalDateTime createdDate;
-    private boolean isDraft;
+    private String status; // PENDING, APPROVED, REJECTED
+    private String rejectionComment;
 
-    private PostStatus postStatus;
-
-    // Constructor
-    public PostResponseDTO(Long id, String title, String content, String author, LocalDateTime createdDate, boolean isDraft, PostStatus postStatus) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.createdDate = createdDate;
-        this.isDraft = isDraft;
-        this.postStatus = postStatus;
-    }
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -67,19 +51,19 @@ public class PostResponseDTO {
         this.createdDate = createdDate;
     }
 
-    public boolean isDraft() {
-        return isDraft;
+    public String getStatus() {
+        return status;
     }
 
-    public void setDraft(boolean draft) {
-        isDraft = draft;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public PostStatus getPostStatus() {
-        return postStatus;
+    public String getRejectionComment() {
+        return rejectionComment;
     }
 
-    public void setPostStatus(PostStatus postStatus) {
-        this.postStatus = postStatus;
+    public void setRejectionComment(String rejectionComment) {
+        this.rejectionComment = rejectionComment;
     }
 }

@@ -8,10 +8,10 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>post-service</artifactId>
+    <artifactId>review-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>post-service</name>
+    <name>review-service</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -73,6 +73,5 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
             <version>2.2.2.RELEASE</version>
         </dependency>
-
     </dependencies>
 </project>

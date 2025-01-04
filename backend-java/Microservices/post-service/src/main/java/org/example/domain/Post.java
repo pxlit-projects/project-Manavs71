@@ -17,19 +17,30 @@ public class Post {
     private Long id;
 
     private String title;
+
+    @Enumerated(EnumType.STRING) // Enum for approval status
+    private PostStatus status; // Pending, Approved, Rejected
+
+    private String rejectionComment;
+
+
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
     private String author;
     private LocalDateTime createdDate;
     private boolean isDraft;
 
-    // Getters en setters
 
+    // Getters en setters
     public Post(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
         this.createdDate = LocalDateTime.now();
         this.isDraft = true;
+        this.status = PostStatus.PENDING;
+
     }
     public Post(){
         //JPA
@@ -75,11 +86,28 @@ public class Post {
         this.createdDate = createdDate;
     }
 
+
     public boolean isDraft() {
         return isDraft;
     }
 
     public void setDraft(boolean draft) {
         isDraft = draft;
+    }
+
+    public PostStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PostStatus status) {
+        this.status = status;
+    }
+
+    public String getRejectionComment() {
+        return rejectionComment;
+    }
+
+    public void setRejectionComment(String rejectionComment) {
+        this.rejectionComment = rejectionComment;
     }
 }
