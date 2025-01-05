@@ -1,4 +1,4 @@
-.post-section {
+.review-section {
   padding: 20px;
   max-width: 600px;
   margin: auto;
@@ -32,8 +32,8 @@ h2 {
   background: #f0f0f0;
 }
 
-.edit-button {
-  background-color: #007bff;
+.approve-button {
+  background-color: green;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -42,7 +42,7 @@ h2 {
   font-size: 14px;
 }
 
-.publish-button {
+.reject-button {
   background-color: darkred;
   color: white;
   border: none;
@@ -52,13 +52,23 @@ h2 {
   font-size: 14px;
 }
 
+.approve-button:hover {
+  background-color: darkgreen;
+}
 
-.edit-button:hover {
-  background-color: #0056b3;
+.reject-button:hover {
+  background-color: red;
 }
 
 .post-date {
   color: #555;
   font-size: 12px;
+  margin-top: 5px;
+}
+
+.post-status {
+  font-size: 14px;
+  font-weight: bold;
+  color: #555;
   margin-top: 5px;
 }

@@ -1,16 +1,13 @@
 <div class="post-section">
-  <h2>Draft Posts</h2>
-  <ul>
-    <li *ngFor="let draft of drafts">
-      {{ draft.title }} - {{ draft.author }} ({{ draft.createdDate }})
-    </li>
-  </ul>
 
   <h2>Published Posts</h2>
-  <ul>
-    <li *ngFor="let post of published">
-      {{ post.title }} - {{ post.author }} ({{ post.createdDate }})
+  <ul class="post-list">
+    <li *ngFor="let post of published" class="post-item">
+      <div>
+        <strong>{{ post.title }}</strong> - <em>{{ post.author }}</em>
+        <p>{{post.content}}</p>
+        <p class="post-date">{{ post.createdDate | date: 'medium' }}</p>
+      </div>
     </li>
   </ul>
 </div>
-

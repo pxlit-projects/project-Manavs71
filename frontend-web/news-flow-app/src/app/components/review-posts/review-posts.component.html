@@ -1,0 +1,15 @@
+<div class="review-section">
+  <h2>Review Posts</h2>
+  <ul class="post-list">
+    <li *ngFor="let post of posts" class="post-item">
+      <div>
+        <strong>{{ post.title }}</strong> - <em>{{ post.author }}</em>
+        <p>{{ post.content }}</p>
+        <p class="post-status">Status: {{ post.postStatus }}</p>
+        <p class="post-date">{{ post.createdDate | date: 'medium' }}</p>
+      </div>
+      <button (click)="approvePost(post.id)" class="approve-button">Approve</button>
+      <button (click)="rejectPost(post.id)" class="reject-button">Reject</button>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,17 @@
+<div class="post-section">
+  <h2>Draft Posts</h2>
+  <!-- app.component.html -->
+  <ul class="post-list">
+    <li *ngFor="let draft of drafts" class="post-item">
+      <div>
+        <strong>{{ draft.title }}</strong> - <em>{{ draft.author }}</em>  - <em>{{draft.postStatus}} </em>
+        <p>{{draft.content}}</p>
+        <p class="post-date">{{ draft.createdDate | date: 'medium' }}</p>
+      </div>
+      <button (click)="publishPost(draft.id)" class="edit-button">Publish</button>
+      <button (click)="editPost(draft.id)" class="edit-button">Edit</button>
+      <button (click)="deletePost(draft.id)" class="delete-button">delete</button>
+    </li>
+  </ul>
+
+</div>

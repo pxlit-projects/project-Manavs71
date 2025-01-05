@@ -22,7 +22,6 @@
 		<developer/>
 	</developers>
     <modules>
-        <module>discovery-service</module>
         <module>config-server</module>
 		<module>post-service</module>
         <module>discovery-service</module>
@@ -98,6 +97,8 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+
 		</plugins>
 	</build>
 

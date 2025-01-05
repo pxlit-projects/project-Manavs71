@@ -1,15 +1,35 @@
-<div class="create-post">
-  <h2>Create New Post</h2>
-  <form (ngSubmit)="createPost()">
-    <mat-form-field>
-      <input matInput placeholder="Title" [(ngModel)]="post.title" name="title" required />
-    </mat-form-field>
-    <mat-form-field>
-      <textarea matInput placeholder="Content" [(ngModel)]="post.content" name="content" required></textarea>
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Author" [(ngModel)]="post.author" name="author" required />
-    </mat-form-field>
-    <button mat-raised-button type="submit" color="primary">Create Post</button>
+<div class="create-post-container">
+  <h2>{{ isEditMode ? 'Edit Post' : 'Create New Post' }}</h2>
+  <form #postForm="ngForm" (ngSubmit)="submitPost(postForm)">
+    <div class="mb-3">
+      <label for="postTitle" class="form-label">Title</label>
+      <input type="text" class="form-control" id="postTitle" placeholder="Enter title" [(ngModel)]="post.title" name="title" required #title="ngModel">
+      <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-danger">
+        <small>Title is required.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="postContent" class="form-label">Content</label>
+      <textarea class="form-control" id="postContent" rows="5" placeholder="Enter content" [(ngModel)]="post.content" name="content" required #content="ngModel"></textarea>
+      <div *ngIf="content.invalid && (content.dirty || content.touched)" class="text-danger">
+        <small>Content is required.</small>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="postAuthor" class="form-label">Author</label>
+      <input type="text" class="form-control" id="postAuthor" placeholder="Enter author name" [(ngModel)]="post.author" name="author" required #author="ngModel">
+      <div *ngIf="author.invalid && (author.dirty || author.touched)" class="text-danger">
+        <small>Author is required.</small>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button type="submit" class="btn btn-primary w-50 me-2" [disabled]="postForm.invalid">{{ isEditMode ? 'Update Post' : 'Publish Post' }}</button>
+
+      <!-- Show 'Save as Draft' only if not in edit mode -->
+      <button *ngIf="!isEditMode" type="button" class="btn btn-secondary w-50" (click)="saveAsDraft()" [disabled]="postForm.invalid">Save as Draft</button>
+    </div>
   </form>
 </div>

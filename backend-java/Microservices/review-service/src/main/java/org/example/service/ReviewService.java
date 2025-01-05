@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -22,6 +23,12 @@ public class ReviewService {
     }
 
     public Review approvePost(Long postId, String reviewer) {
+
+        Optional<Review> existingReview = reviewRepository.findByPostId(postId);
+        if (existingReview.isPresent()) {
+            throw new IllegalStateException("Post ID " + postId + " has already been reviewed.");
+        }
+
         Review review = new Review();
         review.setPostId(postId);
         review.setStatus("APPROVED");
@@ -47,7 +54,6 @@ public class ReviewService {
         review.setReviewDate(LocalDateTime.now());
         reviewRepository.save(review);
 
-        // Send rejection message to RabbitMQ
 
         rabbitTemplate.convertAndSend("post_review_exchange", "post.reject", "Post ID " + postId + " rejected. Comment: " + comment);
 
