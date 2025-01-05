@@ -32,6 +32,11 @@ public class RabbitMqConfig {
     }
 
     @Bean
+    public Queue dummyQueue() {
+        return new Queue("dummy_queue");
+    }
+
+    @Bean
     public Binding approveBinding(Queue approveQueue, TopicExchange topicExchange) {
         return BindingBuilder.bind(approveQueue).to(topicExchange).with("post.approve");
     }
