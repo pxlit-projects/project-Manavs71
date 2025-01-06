@@ -1,4 +1,7 @@
+<app-navbar></app-navbar>
+
 <div class="create-post-container">
+
   <h2>{{ isEditMode ? 'Edit Post' : 'Create New Post' }}</h2>
   <form #postForm="ngForm" (ngSubmit)="submitPost(postForm)">
     <div class="mb-3">

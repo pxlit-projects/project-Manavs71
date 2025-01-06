@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import {CommonModule, DatePipe, NgForOf} from "@angular/common";
 import {PostResponseDTO, PostService} from "../../services/post.service";
 
-import { Router, ActivatedRoute } from "@angular/router";  // Correct way to import Router and ActivatedRoute
+import { Router, ActivatedRoute } from "@angular/router";
+import {NavbarComponent} from "../navbar/navbar.component";  // Correct way to import Router and ActivatedRoute
 
 @Component({
   selector: 'app-drafts-list',
@@ -10,7 +11,8 @@ import { Router, ActivatedRoute } from "@angular/router";  // Correct way to imp
     imports: [
         DatePipe,
         NgForOf,
-      CommonModule,
+        CommonModule,
+        NavbarComponent,
     ],
   templateUrl: './drafts-list.component.html',
   styleUrl: './drafts-list.component.css',

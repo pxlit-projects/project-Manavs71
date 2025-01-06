@@ -6,6 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
+import {NavbarComponent} from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-create-post',
@@ -15,13 +16,14 @@ import {CommonModule} from "@angular/common";
     FormsModule,
     MatButtonModule,
     MatInputModule,
-    CommonModule
+    CommonModule,
+    NavbarComponent
   ],
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING};
+  post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING, comments: [], newCommentContent: ''};
   isEditMode: boolean = false;
   postId!: number;
 

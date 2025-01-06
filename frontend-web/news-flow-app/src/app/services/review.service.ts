@@ -8,7 +8,7 @@ import {PostResponseDTO, PostService} from "./post.service";
   providedIn: 'root'
 })
 export class ReviewService {
-  private apiUrl = `${environment.reviewServiceUrl}/api/review`;
+  private apiUrl = `${environment.reviewServiceUrl}/review`;
 
   constructor(
     private http: HttpClient,

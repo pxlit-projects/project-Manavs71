@@ -1,12 +1,40 @@
-<div class="post-section">
+<app-navbar></app-navbar>
 
+<div class="post-section">
   <h2>Published Posts</h2>
   <ul class="post-list">
     <li *ngFor="let post of published" class="post-item">
-      <div>
+      <div class="post-content">
         <strong>{{ post.title }}</strong> - <em>{{ post.author }}</em>
-        <p>{{post.content}}</p>
+        <p>{{ post.content }}</p>
         <p class="post-date">{{ post.createdDate | date: 'medium' }}</p>
+
+        <!-- Displaying Comments -->
+        <div *ngIf="post.comments.length > 0" class="comments-section">
+          <h5>Comments:</h5>
+          <ul class="comment-list">
+            <li *ngFor="let comment of post.comments" class="comment-item">
+              <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
+            </li>
+          </ul>
+        </div>
+
+        <div *ngIf="post.comments.length === 0">
+          <p>No comments yet.</p>
+        </div>
+
+        <!-- Comment Input Field and Submit Button -->
+        <div class="comment-input-section">
+          <input
+            [(ngModel)]="post.newCommentContent"
+            type="text"
+            class="comment-input"
+            placeholder="Write a comment..."
+          />
+          <button (click)="postComment(post.id, post.newCommentContent)" class="comment-submit-btn">
+            Post Comment
+          </button>
+        </div>
       </div>
     </li>
   </ul>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {map, Observable} from 'rxjs';
 import { environment } from '../../environment';
+import {Comment} from "./comment.service";
 
 export interface PostDTO {
   title: string;
@@ -23,7 +24,8 @@ export interface PostResponseDTO {
   createdDate: string;
   isDraft: boolean;
   postStatus: PostStatus
-
+  comments: Comment[] ;
+  newCommentContent: string;
 }
 
 @Injectable({

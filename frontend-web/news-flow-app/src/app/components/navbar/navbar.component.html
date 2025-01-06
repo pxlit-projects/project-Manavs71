@@ -28,7 +28,9 @@
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/reviewPosts']">Review Posts</a>
         </li>
       </ul>
-      <span class="navbar-text">Login</span>
+      <span class="navbar-text" (click)="logout()">
+        <button class="btn btn-danger">Logout</button>
+      </span>
     </div>
   </div>
 </nav>
