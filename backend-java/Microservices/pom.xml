@@ -27,6 +27,7 @@
         <module>discovery-service</module>
 		<module>review-service</module>
         <module>messaging-service</module>
+        <module>comment-service</module>
 
 
     </modules>

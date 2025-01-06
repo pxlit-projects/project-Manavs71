@@ -8,10 +8,10 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>post-service</artifactId>
+    <artifactId>comment-service</artifactId>
     <packaging>jar</packaging>
 
-    <name>post-service</name>
+    <name>comment-service</name>
     <url>http://maven.apache.org</url>
 
     <properties>
@@ -73,12 +73,5 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
             <version>2.2.2.RELEASE</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-
-
     </dependencies>
 </project>

@@ -3,6 +3,7 @@ package org.example.DTO;
 import org.example.domain.PostStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class PostResponseDTO {
 
@@ -15,6 +16,10 @@ public class PostResponseDTO {
 
     private PostStatus postStatus;
 
+    private List<CommentDTO> comments; // New field for comments
+
+
+
     // Constructor
     public PostResponseDTO(Long id, String title, String content, String author, LocalDateTime createdDate, boolean isDraft, PostStatus postStatus) {
         this.id = id;
@@ -24,6 +29,14 @@ public class PostResponseDTO {
         this.createdDate = createdDate;
         this.isDraft = isDraft;
         this.postStatus = postStatus;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
     }
 
     // Getters and Setters

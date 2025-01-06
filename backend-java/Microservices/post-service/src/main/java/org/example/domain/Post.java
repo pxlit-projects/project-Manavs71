@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.DTO.CommentDTO;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="posts")
@@ -22,6 +25,9 @@ public class Post {
     private PostStatus status; // Pending, Approved, Rejected
 
     private String rejectionComment;
+
+    @Transient
+    private List<CommentDTO> comments;
 
 
     @Lob
@@ -44,6 +50,14 @@ public class Post {
     }
     public Post(){
         //JPA
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
     }
 
     public Long getId() {

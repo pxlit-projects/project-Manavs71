@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,10 +25,13 @@ public class ReviewService {
 
     public Review approvePost(Long postId, String reviewer) {
 
-        Optional<Review> existingReview = reviewRepository.findByPostId(postId);
-        if (existingReview.isPresent()) {
-            throw new IllegalStateException("Post ID " + postId + " has already been reviewed.");
-        }
+        // Fetch all reviews for the given post
+        List<Review> existingReviews = reviewRepository.findReviewsByPostId(postId);
+
+        // If there are any reviews, get the latest one by sorting by review_date DESC
+        Optional<Review> latestReview = existingReviews.stream()
+                .max((review1, review2) -> review1.getReviewDate().compareTo(review2.getReviewDate()));
+
 
         Review review = new Review();
         review.setPostId(postId);

@@ -1,8 +1,10 @@
 package org.example.services;
 
 
+import org.example.DTO.CommentDTO;
 import org.example.DTO.PostDTO;
 import org.example.DTO.PostResponseDTO;
+import org.example.clients.CommentClient;
 import org.example.domain.Post;
 import org.example.domain.PostStatus;
 import org.example.repository.PostRepository;
@@ -18,6 +20,22 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private CommentClient commentClient;
+
+    public Post getPostWithComments(Long postId) {
+        // Fetch the post
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        // Fetch comments via Feign client
+        List<CommentDTO> comments = commentClient.getCommentsForPost(postId);
+
+        post.setComments(comments);
+
+        return post;
+    }
 
     public PostResponseDTO createPost(PostDTO postDTO) {
         try {
@@ -66,12 +84,43 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
-    public List<PostResponseDTO> getPublishedPosts() {
+   /* public List<PostResponseDTO> getPublishedPosts() {
         List<Post> posts = postRepository.findByIsDraft(false);
         return posts.stream()
                 .map(post -> new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus()))
                 .collect(Collectors.toList());
+    }*/
+
+    public List<PostResponseDTO> getPublishedPosts() {
+        // Fetch the list of published posts (those that are not drafts)
+        List<Post> posts = postRepository.findByIsDraft(false);
+
+        // For each post, fetch the comments using the getPostWithComments method
+        return posts.stream()
+                .map(post -> {
+                    // Fetch post with comments
+                    Post postWithComments = getPostWithComments(post.getId());
+
+                    // Map the post object with comments to the PostResponseDTO
+                    PostResponseDTO dto =  new PostResponseDTO(
+                            postWithComments.getId(),
+                            postWithComments.getTitle(),
+                            postWithComments.getContent(),
+                            postWithComments.getAuthor(),
+                            postWithComments.getCreatedDate(),
+                            postWithComments.isDraft(),
+                            postWithComments.getStatus()
+                    );
+
+
+                    dto.setComments(postWithComments.getComments());
+                    return dto;
+                })
+                .collect(Collectors.toList());
     }
+
+
+
 
     public PostResponseDTO editPost(Long postId, PostDTO postDTO) {
         // Check if the post exists
@@ -100,6 +149,7 @@ public class PostService {
         System.out.println("Updating post ID: " + postId + " to status: " + status);
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
         post.setStatus(status);
+
         postRepository.save(post);
     }
 }
