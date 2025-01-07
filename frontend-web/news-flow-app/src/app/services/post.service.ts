@@ -7,7 +7,7 @@ import {Comment} from "./comment.service";
 export interface PostDTO {
   title: string;
   content: string;
-  author: string;
+  author: string | null;
 }
 
 export enum PostStatus {
@@ -20,12 +20,13 @@ export interface PostResponseDTO {
   id: number;
   title: string;
   content: string;
-  author: string;
+  author: string | null;
   createdDate: string;
   isDraft: boolean;
   postStatus: PostStatus
   comments: Comment[] ;
   newCommentContent: string;
+  showComments: boolean;
 }
 
 @Injectable({

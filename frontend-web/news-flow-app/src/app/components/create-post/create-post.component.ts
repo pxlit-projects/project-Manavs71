@@ -7,6 +7,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatInputModule} from "@angular/material/input";
 import {CommonModule} from "@angular/common";
 import {NavbarComponent} from "../navbar/navbar.component";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-create-post',
@@ -23,14 +24,15 @@ import {NavbarComponent} from "../navbar/navbar.component";
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING, comments: [], newCommentContent: ''};
+  post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING, comments: [], newCommentContent: '', showComments: false};
   isEditMode: boolean = false;
   postId!: number;
 
   constructor(
     private postService: PostService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -54,10 +56,16 @@ export class CreatePostComponent implements OnInit {
   submitPost(postForm: any): void {
     if (postForm.valid) {
       if (this.isEditMode) {
+        this.post.author = this.authService.getUsername();
         this.postService.editPost(this.postId, this.post).subscribe(response => {
-          this.router.navigate(['/published']);
+          this.router.navigate(['/drafts']);
         });
       } else {
+
+        //set author
+        this.post.author = this.authService.getUsername();
+        console.log(this.post.author);
+
         this.postService.createPost(this.post).subscribe(response => {
           this.router.navigate(['/published']);
         });
@@ -70,6 +78,7 @@ export class CreatePostComponent implements OnInit {
 
   saveAsDraft(): void {
     const draftPost = { ...this.post, isDraft: true }; // Flag as draft
+    draftPost.author = this.authService.getUsername();
     this.postService.createDraft(draftPost).subscribe(response => {
       this.router.navigate(['/drafts']); // Redirect to drafts list after saving
     });

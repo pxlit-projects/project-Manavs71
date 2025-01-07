@@ -52,8 +52,7 @@ export class ReviewPostsComponent {
       return;
     }
     this.reviewService.rejectPost(postId, reviewer, comment).subscribe((post) => {
-      window.location.reload();
-
+      this.posts = this.posts.filter(p => p.id !== postId);
     });
   }
 }

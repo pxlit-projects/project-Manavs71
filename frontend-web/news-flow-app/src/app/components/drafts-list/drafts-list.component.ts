@@ -1,19 +1,22 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule, DatePipe, NgForOf} from "@angular/common";
-import {PostResponseDTO, PostService} from "../../services/post.service";
+import {PostResponseDTO, PostService, PostStatus} from "../../services/post.service";
 
-import { Router, ActivatedRoute } from "@angular/router";
-import {NavbarComponent} from "../navbar/navbar.component";  // Correct way to import Router and ActivatedRoute
+import {ActivatedRoute, Router} from "@angular/router";
+import {NavbarComponent} from "../navbar/navbar.component";
+import {AuthService} from "../../services/auth.service";
+import {FormsModule} from "@angular/forms"; // Correct way to import Router and ActivatedRoute
 
 @Component({
   selector: 'app-drafts-list',
   standalone: true,
-    imports: [
-        DatePipe,
-        NgForOf,
-        CommonModule,
-        NavbarComponent,
-    ],
+  imports: [
+    DatePipe,
+    NgForOf,
+    CommonModule,
+    NavbarComponent,
+    FormsModule,
+  ],
   templateUrl: './drafts-list.component.html',
   styleUrl: './drafts-list.component.css',
 
@@ -22,10 +25,12 @@ export class DraftsListComponent {
   drafts: PostResponseDTO[] = [];
   published: PostResponseDTO[] = [];
 
+
   constructor(
     private postService: PostService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -33,9 +38,14 @@ export class DraftsListComponent {
   }
 
   loadPosts(): void {
-    this.postService.getDraftPosts().subscribe(drafts => this.drafts = drafts);
-    this.postService.getPublishedPosts().subscribe(published => this.published = published);
+    this.postService.getDraftPosts().subscribe((drafts) => {
+      // Filter drafts by the current logged-in user's username
+      this.drafts = drafts.filter(draft => draft.author === this.authService.getUsername());
+
+    });
   }
+
+
 
   editPost(postId: number): void {
     console.log(`Editing post with ID: ${postId}`);

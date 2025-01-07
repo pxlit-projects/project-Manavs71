@@ -15,10 +15,19 @@ import {AuthService} from "../../services/auth.service";
 })
 export class PostListComponent implements OnInit {
   published: PostResponseDTO[] = [];
+  filteredPosts: PostResponseDTO[] = [];
+
   username: string | null;
 
   currentEditingCommentId: number | null = null;
   editingContent: string = '';
+
+  filter = {
+    author: '',
+    date: '',
+    content: ''
+  };
+
   constructor(
     private postService: PostService,
     private commentService: CommentService, private authService: AuthService
@@ -36,10 +45,34 @@ export class PostListComponent implements OnInit {
       // Initialize each post with a temporary newCommentContent
       this.published = posts.map(post => ({
         ...post,
-        newCommentContent: '' // Initialize newCommentContent for each post
+        newCommentContent: '', // Initialize newCommentContent for each post,
+        showComments: false
       }));
+      this.filteredPosts = [...this.published];
+
+    });
+
+  }
+
+  // Apply filters based on user input
+  // Apply filters based on user input
+  applyFilters(): void {
+    this.filteredPosts = this.published.filter(post => {
+      const matchesAuthor = post.author?.toLowerCase().includes(this.filter.author.toLowerCase());
+      const matchesContent = post.content.toLowerCase().includes(this.filter.content.toLowerCase());
+      const matchesDate = this.filter.date ? new Date(post.createdDate).toISOString().slice(0, 10) === this.filter.date : true;
+      return matchesAuthor && matchesContent && matchesDate;
     });
   }
+
+  // Method to toggle the visibility of comments
+  toggleComments(postId: number): void {
+    const post = this.published.find(post => post.id === postId);
+    if (post) {
+      post.showComments = !post.showComments;
+    }
+  }
+
 
   postComment(postId: number, newCommentContent: string): void {
     if (!newCommentContent.trim()) {

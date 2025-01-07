@@ -11,7 +11,7 @@ export class AuthService {
   private users = [
     { username: 'manav', password: 'pxl', role: 'Editor' },
     { username: 'john', password: 'pxl', role: 'User' },
-    { username: 'jane', password: 'pxl', role: 'User' }
+    { username: 'sofia', password: 'pxl', role: 'Editor' }
   ];
 
   constructor() {}
@@ -23,8 +23,8 @@ export class AuthService {
     if (user) {
       this.userRole = user.role;  // Assign the user's role
       this.username = username;
-      localStorage.setItem('userRole', this.userRole);
-      localStorage.setItem('username', this.username);
+      sessionStorage.setItem('userRole', this.userRole);
+      sessionStorage.setItem('username', this.username);
       return true;
     }
 
@@ -42,8 +42,8 @@ export class AuthService {
   // Log out the user (clear session)
   logout(): void {
     this.userRole = null;
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('username');
+    sessionStorage.removeItem('userRole');
+    sessionStorage.removeItem('username');
   }
 
   // Check if the user is logged in

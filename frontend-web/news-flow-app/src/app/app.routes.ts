@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'drafts', component: DraftsListComponent, canActivate: [AuthGuard]  },
   { path: 'create', component: CreatePostComponent, canActivate: [AuthGuard]  },
   { path: 'edit/:id', component: CreatePostComponent, canActivate: [AuthGuard]  },
-  { path: 'reviewPosts', component: ReviewPostsComponent, canActivate: [AuthGuard]  }
+  { path: 'reviewPosts', component: ReviewPostsComponent, canActivate: [AuthGuard]  },
 ];
 
 

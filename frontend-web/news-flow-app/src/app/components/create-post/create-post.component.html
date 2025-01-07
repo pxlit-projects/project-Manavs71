@@ -20,13 +20,6 @@
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="postAuthor" class="form-label">Author</label>
-      <input type="text" class="form-control" id="postAuthor" placeholder="Enter author name" [(ngModel)]="post.author" name="author" required #author="ngModel">
-      <div *ngIf="author.invalid && (author.dirty || author.touched)" class="text-danger">
-        <small>Author is required.</small>
-      </div>
-    </div>
 
     <div class="button-group">
       <button type="submit" class="btn btn-primary w-50 me-2" [disabled]="postForm.invalid">{{ isEditMode ? 'Update Post' : 'Publish Post' }}</button>

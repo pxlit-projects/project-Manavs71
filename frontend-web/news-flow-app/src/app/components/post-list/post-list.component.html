@@ -2,24 +2,42 @@
 
 <div class="post-section">
   <h2>Published Posts</h2>
+  <div class="filters">
+    <label>
+      Author:
+      <input [(ngModel)]="filter.author" type="text" placeholder="Filter by author">
+    </label>
+    <label>
+      Date:
+      <input [(ngModel)]="filter.date" type="date">
+    </label>
+    <label>
+      Content:
+      <input [(ngModel)]="filter.content" type="text" placeholder="Filter by content">
+    </label>
+    <button (click)="applyFilters()">Filter</button>
+  </div>
+
   <ul class="post-list">
-    <li *ngFor="let post of published" class="post-item">
+    <li *ngFor="let post of filteredPosts" class="post-item">
       <div class="post-content">
         <strong>{{ post.title }}</strong> - <em>{{ post.author }}</em>
         <p>{{ post.content }}</p>
         <p class="post-date">{{ post.createdDate | date: 'medium' }}</p>
 
-        <!-- Displaying Comments -->
-        <div *ngIf="post.comments.length > 0" class="comments-section">
-          <h5>Comments:</h5>
+        <!-- Show/Hide Comments Button -->
+        <button (click)="toggleComments(post.id)">
+          {{ post.showComments ? 'Hide Comments' : 'Show Comments' }}
+        </button>
+
+        <!-- Displaying Comments if showComments is true -->
+        <div *ngIf="post.showComments && post.comments.length > 0" class="comments-section">
           <ul class="comment-list">
             <li *ngFor="let comment of post.comments" class="comment-item">
               <div *ngIf="currentEditingCommentId !== comment.id">
                 <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
-                <!-- Show edit button only if the logged-in user matches the comment username -->
                 <button *ngIf="comment.username === username" (click)="enableEditing(comment.id, comment.content)">Edit</button>
                 <button *ngIf="comment.username === username" (click)="deleteComment(comment.id, post.id)">Delete</button>
-
               </div>
 
               <!-- Edit form -->
@@ -36,7 +54,7 @@
           </ul>
         </div>
 
-        <div *ngIf="post.comments.length === 0">
+        <div *ngIf="post.showComments && post.comments.length === 0">
           <p>No comments yet.</p>
         </div>
 
