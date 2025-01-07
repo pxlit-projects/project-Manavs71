@@ -10,10 +10,18 @@ import {AuthService} from "../../services/auth.service";
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+
+  username: string | null;
+  constructor(private authService: AuthService, private router: Router) {
+    this.username = authService.getUsername();
+  }
 
   logout(): void {
     this.authService.logout(); // Call the AuthService's logout method
     this.router.navigate(['/login']); // Redirect to the login page
   }
+
+
+
+
 }

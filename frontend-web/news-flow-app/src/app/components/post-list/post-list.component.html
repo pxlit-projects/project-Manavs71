@@ -14,7 +14,22 @@
           <h5>Comments:</h5>
           <ul class="comment-list">
             <li *ngFor="let comment of post.comments" class="comment-item">
-              <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
+              <div *ngIf="currentEditingCommentId !== comment.id">
+                <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
+                <!-- Show edit button only if the logged-in user matches the comment username -->
+                <button *ngIf="comment.username === username" (click)="enableEditing(comment.id, comment.content)">Edit</button>
+              </div>
+
+              <!-- Edit form -->
+              <div *ngIf="currentEditingCommentId === comment.id">
+                <input
+                  [(ngModel)]="editingContent"
+                  type="text"
+                  placeholder="Edit your comment..."
+                />
+                <button (click)="updateComment(comment.id)">Save</button>
+                <button (click)="cancelEditing()">Cancel</button>
+              </div>
             </li>
           </ul>
         </div>
