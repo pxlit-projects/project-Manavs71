@@ -9,9 +9,9 @@ export class AuthService {
 
   // Simulate a database of users
   private users = [
-    { username: 'manav', password: 'pxl', role: 'redacteur' },
-    { username: 'john', password: 'pxl', role: 'user' },
-    { username: 'jane', password: 'pxl', role: 'Editor' }
+    { username: 'manav', password: 'pxl', role: 'Editor' },
+    { username: 'john', password: 'pxl', role: 'User' },
+    { username: 'jane', password: 'pxl', role: 'User' }
   ];
 
   constructor() {}

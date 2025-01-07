@@ -18,6 +18,8 @@
                 <p><strong>{{ comment.username }}</strong>: {{ comment.content }}</p>
                 <!-- Show edit button only if the logged-in user matches the comment username -->
                 <button *ngIf="comment.username === username" (click)="enableEditing(comment.id, comment.content)">Edit</button>
+                <button *ngIf="comment.username === username" (click)="deleteComment(comment.id, post.id)">Delete</button>
+
               </div>
 
               <!-- Edit form -->

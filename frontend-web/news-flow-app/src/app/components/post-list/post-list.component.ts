@@ -105,4 +105,20 @@ export class PostListComponent implements OnInit {
       }
     );
   }
+
+  // Method to delete a comment
+  deleteComment(commentId: number, postId: number): void {
+    this.commentService.deleteComment(commentId).subscribe(
+      () => {
+        // Find the post and remove the comment from its comment list
+        const post = this.published.find(post => post.id === postId);
+        if (post) {
+          post.comments = post.comments.filter(comment => comment.id !== commentId);
+        }
+      },
+      error => {
+        console.error('Error deleting comment', error);
+      }
+    );
+  }
 }

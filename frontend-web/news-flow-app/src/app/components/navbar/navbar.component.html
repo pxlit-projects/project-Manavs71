@@ -17,14 +17,14 @@
         <li class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/published']">Home</a>
         </li>
-        <li class="nav-item">
+        <!-- Only show 'Drafts', 'Create' and 'Review Posts' for 'editor' role -->
+        <li *ngIf="userRole === 'Editor'" class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/drafts']">Drafts</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="userRole === 'Editor'" class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/create']">Create</a>
         </li>
-
-        <li class="nav-item">
+        <li *ngIf="userRole === 'Editor'" class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/reviewPosts']">Review Posts</a>
         </li>
       </ul>

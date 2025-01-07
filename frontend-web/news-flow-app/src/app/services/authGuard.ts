@@ -14,6 +14,19 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     if (this.authService.isLoggedIn()) {
+      const userRole = this.authService.getUserRole();
+
+      // If the user is not logged in or the route is not allowed for their role, redirect to login
+      if (userRole === 'User' && state.url !== '/published') {
+        this.router.navigate(['/published']); // Users can only access the "published" page
+        return false;
+      }
+
+      // Editors can access all routes
+      if (userRole === 'Editor') {
+        return true;
+      }
+
       return true;
     } else {
       this.router.navigate(['/login']);
