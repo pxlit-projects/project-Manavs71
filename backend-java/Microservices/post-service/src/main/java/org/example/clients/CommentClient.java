@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "comment-service", url = "http://localhost:8051/comments") // Adjust URL to your CommentService URL
+@FeignClient(name = "comment-service", url = "http://localhost:8030/commentService/comments") // Adjust URL to your CommentService URL
 
 public interface CommentClient {
     @GetMapping("/{postId}")

@@ -10,14 +10,14 @@
         <module name="post-service" />
         <module name="messaging-service" />
         <module name="comment-service" />
-        <module name="discovery-service" />
         <module name="review-service" />
+        <module name="gateway-service" />
+        <module name="discovery-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="department-service" target="21" />
       <module name="employee-service" target="21" />
-      <module name="gateway-service" target="21" />
       <module name="notification-service" target="21" />
       <module name="organization-service" target="21" />
     </bytecodeTargetLevel>

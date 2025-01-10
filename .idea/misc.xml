@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="MavenProjectsManager">
@@ -10,7 +11,6 @@
       <set>
         <option value="$PROJECT_DIR$/backend-java/Microservices/department-service/pom.xml" />
         <option value="$PROJECT_DIR$/backend-java/Microservices/employee-service/pom.xml" />
-        <option value="$PROJECT_DIR$/backend-java/Microservices/gateway-service/pom.xml" />
         <option value="$PROJECT_DIR$/backend-java/Microservices/notification-service/pom.xml" />
         <option value="$PROJECT_DIR$/backend-java/Microservices/organization-service/pom.xml" />
       </set>
