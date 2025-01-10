@@ -27,6 +27,7 @@ export interface PostResponseDTO {
   comments: Comment[] ;
   newCommentContent: string;
   showComments: boolean;
+  rejectionComment: string;
 }
 
 @Injectable({

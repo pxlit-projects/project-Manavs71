@@ -19,7 +19,7 @@
         </li>
         <!-- Only show 'Drafts', 'Create' and 'Review Posts' for 'editor' role -->
         <li *ngIf="userRole === 'Editor'" class="nav-item">
-          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/drafts']">Drafts</a>
+          <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/drafts']">My posts</a>
         </li>
         <li *ngIf="userRole === 'Editor'" class="nav-item">
           <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/create']">Create</a>

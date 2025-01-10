@@ -1,21 +1,52 @@
 <app-navbar></app-navbar>
 
-<div class="post-section">
+<div class="container my-4">
+  <h2 class="text-primary border-bottom pb-2 text-center">Your Posts</h2>
 
-  <h2>Your posts</h2>
-
-  <!-- app.component.html -->
-  <ul class="post-list">
-    <li *ngFor="let draft of drafts" class="post-item">
+  <!-- Drafts List -->
+  <ul class="list-group">
+    <li *ngFor="let draft of drafts" class="list-group-item mb-3 shadow-sm">
       <div>
-        <strong>{{ draft.title }}</strong> - <em>{{ draft.author }}</em>  - <em>{{draft.postStatus}} </em>
-        <p>{{draft.content}}</p>
-        <p class="post-date">{{ draft.createdDate | date: 'medium' }}</p>
+        <h5 class="mb-1 text-primary">{{ draft.title }}</h5>
+        <p class="mb-1">
+          <strong>Author:</strong> {{ draft.author }} <br />
+          <strong>Status:</strong>
+          <span class="badge bg-info text-dark">{{ draft.postStatus }}</span> <br />
+          <ng-container *ngIf="draft.postStatus === 'REJECTED'">
+            <strong>Reason:</strong>
+            <span class="rejectionComment">{{ draft.rejectionComment }}</span> <br />
+          </ng-container>
+          <strong>Date:</strong> {{ draft.createdDate | date: 'medium' }}
+        </p>
+        <p>{{ draft.content }}</p>
       </div>
-      <button (click)="publishPost(draft.id)" class="edit-button">Publish</button>
-      <button (click)="editPost(draft.id)" class="edit-button">Edit</button>
-      <button (click)="deletePost(draft.id)" class="delete-button">delete</button>
+
+      <!-- Action Buttons -->
+      <div class="d-flex justify-content-end mt-2">
+        <button
+          (click)="publishPost(draft.id)"
+          class="btn btn-success btn-sm me-2"
+        >
+          Publish
+        </button>
+        <button
+          (click)="editPost(draft.id)"
+          class="btn btn-warning btn-sm me-2"
+        >
+          Edit
+        </button>
+        <button
+          (click)="deletePost(draft.id)"
+          class="btn btn-danger btn-sm"
+        >
+          Delete
+        </button>
+      </div>
     </li>
   </ul>
 
+  <!-- No Drafts Alert -->
+  <div *ngIf="drafts.length === 0" class="alert alert-warning mt-3">
+    You don't have any drafts yet.
+  </div>
 </div>

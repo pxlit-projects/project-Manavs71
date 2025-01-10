@@ -32,11 +32,11 @@ export class AuthService {
   }
 
   getUserRole(): string | null {
-    return this.userRole || localStorage.getItem('userRole');
+    return this.userRole || sessionStorage.getItem('userRole');
   }
 
   getUsername(): string | null{
-    return this.username || localStorage.getItem('username');
+    return this.username || sessionStorage.getItem('username');
   }
 
   // Log out the user (clear session)
@@ -48,6 +48,6 @@ export class AuthService {
 
   // Check if the user is logged in
   isLoggedIn(): boolean {
-    return this.userRole !== null || localStorage.getItem('userRole') !== null;
+    return this.userRole !== null || sessionStorage.getItem('userRole') !== null;
   }
 }

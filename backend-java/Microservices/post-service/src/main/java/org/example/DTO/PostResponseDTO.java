@@ -18,10 +18,10 @@ public class PostResponseDTO {
 
     private List<CommentDTO> comments; // New field for comments
 
-
+    private String rejectionComment;
 
     // Constructor
-    public PostResponseDTO(Long id, String title, String content, String author, LocalDateTime createdDate, boolean isDraft, PostStatus postStatus) {
+    public PostResponseDTO(Long id, String title, String content, String author, LocalDateTime createdDate, boolean isDraft, PostStatus postStatus, String rejectionComment) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -29,6 +29,15 @@ public class PostResponseDTO {
         this.createdDate = createdDate;
         this.isDraft = isDraft;
         this.postStatus = postStatus;
+        this.rejectionComment = rejectionComment;
+    }
+
+    public String getRejectionComment() {
+        return rejectionComment;
+    }
+
+    public void setRejectionComment(String rejectionComment) {
+        this.rejectionComment = rejectionComment;
     }
 
     public List<CommentDTO> getComments() {

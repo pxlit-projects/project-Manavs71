@@ -1,21 +1,36 @@
 <app-navbar></app-navbar>
 
-<div class="review-section">
+<div class="review-section container my-4">
+  <h2 class="text-primary border-bottom pb-2">Review Posts</h2>
 
-  <h2>Review Posts</h2>
-  <ul class="post-list">
-    <li *ngFor="let post of posts" class="post-item">
+  <!-- Post List -->
+  <ul class="list-group">
+    <li *ngFor="let post of posts" class="list-group-item mb-3 shadow-sm">
       <div>
-        <strong>{{ post.title }}</strong> - <em>{{ post.author }}</em>
+        <h5 class="mb-1 text-primary">{{ post.title }}</h5>
+        <p class="mb-1"><strong>Author:</strong> {{ post.author }}</p>
         <p>{{ post.content }}</p>
-        <p class="post-status">Status: {{ post.postStatus }}</p>
+        <p class="post-status">Status: <span class="badge text-bg-secondary">{{ post.postStatus }}</span></p>
         <p class="post-date">{{ post.createdDate | date: 'medium' }}</p>
       </div>
-      <button (click)="approvePost(post.id)" class="approve-button">Approve</button>
 
-      <!-- Input field for the rejection comment -->
-      <input type="text" [(ngModel)]="commentInput[post.id]" placeholder="Add a comment" class="comment-input" />
-      <button (click)="rejectPost(post.id)" class="reject-button">Reject</button>
+        <div *ngIf="authService.getUsername() !== post.author" class="d-flex justify-content-between align-items-center mt-3">
+          <button (click)="approvePost(post.id)" class="btn btn-success btn-sm">
+            Approve
+          </button>
+
+          <!-- Input field for the rejection comment -->
+          <input
+            [(ngModel)]="commentInput[post.id]"
+            type="text"
+            placeholder="Add a comment"
+            class="form-control form-control-sm w-50"
+          />
+
+          <button (click)="rejectPost(post.id)" class="btn btn-danger btn-sm">
+            Reject
+          </button>
+        </div>
     </li>
   </ul>
 </div>

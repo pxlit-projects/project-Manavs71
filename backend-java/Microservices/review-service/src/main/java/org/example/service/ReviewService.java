@@ -1,5 +1,7 @@
 package org.example.service;
 
+import org.antlr.v4.runtime.ConsoleErrorListener;
+import org.example.clients.PostServiceClient;
 import org.example.domain.Review;
 import org.example.reviewRepository.ReviewRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -18,9 +20,12 @@ public class ReviewService {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public ReviewService(RabbitTemplate rabbitTemplate, ReviewRepository reviewRepository){
+    private final PostServiceClient postServiceClient;
+
+    public ReviewService(RabbitTemplate rabbitTemplate, ReviewRepository reviewRepository, PostServiceClient postServiceClient){
         this.reviewRepository = reviewRepository;
         this.rabbitTemplate = rabbitTemplate;
+        this.postServiceClient = postServiceClient;
     }
 
     public Review approvePost(Long postId, String reviewer) {
@@ -58,8 +63,18 @@ public class ReviewService {
         review.setReviewDate(LocalDateTime.now());
         reviewRepository.save(review);
 
+        try
+        {
+            postServiceClient.updateRejectionComment(postId, comment);
+
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
 
         rabbitTemplate.convertAndSend("post_review_exchange", "post.reject", "Post ID " + postId + " rejected. Comment: " + comment);
+
+
 
         //for debug purpose
         System.out.println("The rejected message for post id: "+ postId +" is sent");

@@ -24,7 +24,7 @@ import {AuthService} from "../../services/auth.service";
   styleUrls: ['./create-post.component.css']
 })
 export class CreatePostComponent implements OnInit {
-  post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING, comments: [], newCommentContent: '', showComments: false};
+  post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING, comments: [], newCommentContent: '', showComments: false, rejectionComment: ''};
   isEditMode: boolean = false;
   postId!: number;
 

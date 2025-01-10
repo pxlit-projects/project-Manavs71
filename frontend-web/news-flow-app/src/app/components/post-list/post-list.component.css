@@ -1,86 +1,41 @@
-/* Post Section */
-.post-section {
-  padding: 20px;
-  max-width: 700px;
-  margin: auto;
-  font-family: 'Arial', sans-serif;
+/* General Container */
+.container {
+  max-width: 900px;
 }
 
-h2 {
-  border-bottom: 2px solid #007bff;
-  padding-bottom: 10px;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-.post-list {
-  list-style: none;
-  padding: 0;
-}
-
-.post-item {
-  background: #ffffff;
-  margin-bottom: 15px;
-  padding: 15px;
+/* Filter Section */
+.card {
   border-radius: 8px;
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
 }
 
-
-
-.post-content {
-  margin-bottom: 10px;
+/* Post List */
+.list-group-item {
+  border-radius: 8px;
 }
 
-.post-content strong {
-  font-size: 1.1em;
-  color: #333;
+.list-group-item h5 {
+  font-size: 1.25rem;
 }
 
-.post-content em {
-  font-size: 0.9em;
-  color: #555;
+.list-group-item .btn {
+  margin-right: 5px;
 }
 
-.post-date {
-  font-size: 12px;
-  color: #777;
-  margin-top: 8px;
-}
-
-.comment-list {
-  list-style: none;
+/* Comments Section */
+.list-group-item ul {
   padding: 0;
-  margin-top: 10px;
 }
 
-.comment-item {
-  background-color: #f8f8f8;
-  margin-bottom: 8px;
-  padding: 10px;
-  border-radius: 5px;
+.list-group-item ul .list-group-item {
   border: 1px solid #e0e0e0;
+  border-radius: 5px;
 }
 
-.comment-item strong {
-  color: #007bff;
+.alert {
+  border-radius: 8px;
 }
 
-.comment-item p {
-  font-size: 14px;
-  color: #555;
+.btn-link {
+  padding: 0;
+  margin-left: 5px;
 }
-
-.comments-section h3 {
-  font-size: 1.1em;
-  margin-top: 10px;
-  color: #333;
-}
-
-.no-comments {
-  font-style: italic;
-  color: #777;
-}
-

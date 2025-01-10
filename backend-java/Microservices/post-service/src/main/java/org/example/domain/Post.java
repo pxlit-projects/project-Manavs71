@@ -46,6 +46,7 @@ public class Post {
         this.createdDate = LocalDateTime.now();
         this.isDraft = true;
         this.status = PostStatus.PENDING;
+        this.rejectionComment = null;
 
     }
     public Post(){

@@ -42,7 +42,7 @@ public class PostService {
             Post post = new Post(postDTO.getTitle(), postDTO.getContent(), postDTO.getAuthor());
             post.setDraft(false);
             post = postRepository.save(post);
-            return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus());
+            return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus(), post.getRejectionComment());
         } catch (Exception e) {
             throw new RuntimeException("Error while creating the post: " + e.getMessage(), e);
         }
@@ -53,7 +53,7 @@ public class PostService {
             Post draftPost = new Post(postDTO.getTitle(), postDTO.getContent(), postDTO.getAuthor());
             draftPost.setDraft(true);
             draftPost = postRepository.save(draftPost);
-            return new PostResponseDTO(draftPost.getId(), draftPost.getTitle(), draftPost.getContent(), draftPost.getAuthor(), draftPost.getCreatedDate(), draftPost.isDraft(), draftPost.getStatus());
+            return new PostResponseDTO(draftPost.getId(), draftPost.getTitle(), draftPost.getContent(), draftPost.getAuthor(), draftPost.getCreatedDate(), draftPost.isDraft(), draftPost.getStatus(),draftPost.getRejectionComment());
         } catch (Exception e) {
             throw new RuntimeException("Error while creating the draft: " + e.getMessage(), e);
         }
@@ -67,20 +67,20 @@ public class PostService {
         post.setDraft(true);
         post = postRepository.save(post);
 
-        return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus());
+        return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus(),post.getRejectionComment());
     }
 
     public PostResponseDTO publish(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
         post.setDraft(false);
         post = postRepository.save(post);
-        return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus());
+        return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus(),post.getRejectionComment());
     }
 
     public List<PostResponseDTO> getDraftPosts() {
         List<Post> drafts = postRepository.findByIsDraft(true);
         return drafts.stream()
-                .map(post -> new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus()))
+                .map(post -> new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus(),post.getRejectionComment()))
                 .collect(Collectors.toList());
     }
 
@@ -109,7 +109,8 @@ public class PostService {
                             postWithComments.getAuthor(),
                             postWithComments.getCreatedDate(),
                             postWithComments.isDraft(),
-                            postWithComments.getStatus()
+                            postWithComments.getStatus(),
+                            postWithComments.getRejectionComment()
                     );
 
 
@@ -136,7 +137,7 @@ public class PostService {
         post = postRepository.save(post);
 
         // Return the updated PostResponseDTO
-        return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus());
+        return new PostResponseDTO(post.getId(), post.getTitle(), post.getContent(), post.getAuthor(), post.getCreatedDate(), post.isDraft(), post.getStatus(),post.getRejectionComment());
     }
 
     public void deleteDraft(Long postId) {
@@ -149,7 +150,22 @@ public class PostService {
         System.out.println("Updating post ID: " + postId + " to status: " + status);
         Post post = postRepository.findById(postId).orElseThrow(() -> new RuntimeException("Post not found"));
         post.setStatus(status);
-
+        if(post.getStatus().equals(PostStatus.REJECTED )){
+            post.setDraft(true);
+        }
+        else{
+            post.setDraft(false);
+        }
         postRepository.save(post);
+    }
+
+    public void updateRejectionComment(Long postId, String comment) {
+        Post post = postRepository.findById(postId)
+                .orElseThrow(() -> new RuntimeException("Post not found"));
+
+        post.setRejectionComment(comment);
+        postRepository.save(post);
+
+        System.out.println("Updated rejection comment for post ID: " + postId);
     }
 }

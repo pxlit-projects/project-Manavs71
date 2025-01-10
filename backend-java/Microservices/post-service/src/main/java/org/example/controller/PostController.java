@@ -29,6 +29,11 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(draftRespone);
     }
 
+    @PutMapping("/rejection-comment")
+    public void updateRejectionComment(@RequestParam Long postId, @RequestParam String comment) {
+        postService.updateRejectionComment(postId, comment);
+    }
+
 
 
 

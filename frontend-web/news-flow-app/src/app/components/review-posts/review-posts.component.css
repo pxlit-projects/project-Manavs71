@@ -1,6 +1,6 @@
 .review-section {
   padding: 20px;
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   font-family: Arial, sans-serif;
 }
@@ -12,52 +12,20 @@ h2 {
   color: #333;
 }
 
-.post-list {
-  list-style: none;
-  padding: 0;
-}
-
-.post-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f9f9f9;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
+.list-group-item {
+  background-color: #f9f9f9;
   border: 1px solid #ddd;
+  border-radius: 5px;
 }
 
-.post-item:hover {
-  background: #f0f0f0;
+.list-group-item:hover {
+  background-color: #f0f0f0;
 }
 
-.approve-button {
-  background-color: green;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
+.post-status {
   font-size: 14px;
-}
-
-.reject-button {
-  background-color: darkred;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.approve-button:hover {
-  background-color: darkgreen;
-}
-
-.reject-button:hover {
-  background-color: red;
+  font-weight: bold;
+  color: #555;
 }
 
 .post-date {
@@ -66,9 +34,39 @@ h2 {
   margin-top: 5px;
 }
 
-.post-status {
+input.form-control-sm {
+  max-width: 50%;
+}
+
+button.btn-sm {
   font-size: 14px;
-  font-weight: bold;
-  color: #555;
-  margin-top: 5px;
+  padding: 5px 10px;
+}
+
+button.btn-success {
+  background-color: green;
+  border-color: green;
+}
+
+button.btn-danger {
+  background-color: darkred;
+  border-color: darkred;
+}
+
+button.btn-success:hover {
+  background-color: darkgreen;
+  border-color: darkgreen;
+}
+
+button.btn-danger:hover {
+  background-color: red;
+  border-color: red;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+.badge.text-bg-secondary {
+  background-color: #6c757d;
 }

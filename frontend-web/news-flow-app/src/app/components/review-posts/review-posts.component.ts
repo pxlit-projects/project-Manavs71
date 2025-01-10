@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {NavbarComponent} from "../navbar/navbar.component";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'app-review-posts',
@@ -16,11 +17,13 @@ import {NavbarComponent} from "../navbar/navbar.component";
 export class ReviewPostsComponent {
   posts: PostResponseDTO[] = [];
   commentInput: { [key: number]: string } = {}; // Dictionary to hold comments for each post
-
   constructor(
     private reviewService: ReviewService,
-    private router: Router
-  ) {}
+    private router: Router,
+     public authService: AuthService
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.loadPosts();

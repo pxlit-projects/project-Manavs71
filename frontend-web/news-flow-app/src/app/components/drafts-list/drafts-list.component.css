@@ -1,64 +1,91 @@
+/* General Section Styling */
 .post-section {
   padding: 20px;
-  max-width: 600px;
+  max-width: 800px;
   margin: auto;
   font-family: Arial, sans-serif;
 }
 
+/* Header Styling */
 h2 {
   border-bottom: 2px solid #007bff;
   padding-bottom: 5px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   color: #333;
+  text-align: center;
 }
 
-.post-list {
+/* Post List Styling */
+ul.list-group {
   list-style: none;
   padding: 0;
 }
 
-.post-item {
+/* Post Item Styling */
+.list-group-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #f9f9f9;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  flex-direction: column;
+  background: #ffffff;
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 8px;
   border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.post-item:hover {
-  background: #f0f0f0;
+/* Hover Effects for Post Item */
+.list-group-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.edit-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
+/* Buttons Styling */
+.btn {
   font-size: 14px;
+  border-radius: 4px;
 }
 
-.delete-button {
-  background-color: darkred;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-  font-size: 14px;
+/* Publish Button */
+.btn-success {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+.rejectionComment{
+  color: red;
 }
 
-
-.edit-button:hover {
-  background-color: #0056b3;
+.btn-success:hover {
+  background-color: #218838;
+  border-color: #1e7e34;
 }
 
-.post-date {
-  color: #555;
-  font-size: 12px;
-  margin-top: 5px;
+/* Edit Button */
+.btn-warning {
+  background-color: #ffc107;
+  border-color: #ffc107;
+  color: #212529;
+}
+
+.btn-warning:hover {
+  background-color: #e0a800;
+  border-color: #d39e00;
+  color: #212529;
+}
+
+/* Delete Button */
+.btn-danger {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+/* Empty Draft Alert */
+.alert-warning {
+  text-align: center;
+  font-size: 16px;
 }
