@@ -1,27 +1,27 @@
-# Use the official Node.js image
-FROM node:18-alpine as build
+# Use the official Node.js image as the base image
+FROM node:18.19
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy the package.json and install dependencies
-COPY package.json package-lock.json ./
+# Install dependencies
+COPY package*.json ./
 RUN npm install
 
 # Copy the rest of the application code
 COPY . .
 
-# Build the Angular app
+# Build the Angular application
 RUN npm run build --prod
 
-# Use the official Nginx image to serve the app
-FROM nginx:alpine
+# Install a simple HTTP server to serve the Angular application
+RUN npm install -g http-server
 
-# Copy the build output from the build stage
-COPY --from=build /app/dist/my-post-app /usr/share/nginx/html
+# Set the working directory to the build output directory
+WORKDIR /app/dist/news-flow-app/browser
 
 # Expose port 80
 EXPOSE 80
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the HTTP server
+CMD ["http-server", "-p", "80", "-c-1", "-o", "index.html"]
