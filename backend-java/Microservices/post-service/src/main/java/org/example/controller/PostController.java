@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -18,24 +19,33 @@ public class PostController {
     private PostService postService;
 
     @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostDTO postDTO) {
-        PostResponseDTO postResponse = postService.createPost(postDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(postResponse);
+    public ResponseEntity<?> createPost(@RequestBody PostDTO postDTO) {
+        if (postDTO.getTitle() == null || postDTO.getTitle().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", "Title cannot be empty"));
+        }
+        try {
+            PostResponseDTO postResponse = postService.createPost(postDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(postResponse);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Collections.singletonMap("message", e.getMessage()));
+        }
     }
 
-    @PostMapping(value ="/createDraft", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/createDraft", consumes = "application/json", produces = "application/json")
     public ResponseEntity<PostResponseDTO> createDraft(@RequestBody PostDTO postDTO) {
-        PostResponseDTO draftRespone = postService.createDraft(postDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(draftRespone);
+        try{
+            PostResponseDTO draftRespone = postService.createDraft(postDTO);
+            return ResponseEntity.status(HttpStatus.CREATED).body(draftRespone);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @PutMapping("/rejection-comment")
     public void updateRejectionComment(@RequestParam Long postId, @RequestParam String comment) {
         postService.updateRejectionComment(postId, comment);
     }
-
-
-
 
 
     @PostMapping("/draft/{postId}")
@@ -46,8 +56,16 @@ public class PostController {
 
     @PostMapping("/publish/{postId}")
     public ResponseEntity<PostResponseDTO> publishPost(@PathVariable Long postId) {
-        PostResponseDTO postResponse = postService.publish(postId);
-        return ResponseEntity.ok(postResponse);
+
+        try {
+            PostResponseDTO postResponse = postService.publish(postId);
+            return ResponseEntity.ok(postResponse);
+        }
+        catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+
+
     }
 
     // Endpoint voor het ophalen van alle concepten
@@ -60,8 +78,15 @@ public class PostController {
     // Endpoint voor het ophalen van alle gepubliceerde posts
     @GetMapping("/published")
     public ResponseEntity<List<PostResponseDTO>> getPublishedPosts() {
-        List<PostResponseDTO> posts = postService.getPublishedPosts();
-        return ResponseEntity.ok(posts);
+
+        try{
+            List<PostResponseDTO> posts = postService.getPublishedPosts();
+            return ResponseEntity.ok(posts);
+        }
+        catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @PutMapping("/edit/{postId}")
@@ -71,7 +96,14 @@ public class PostController {
     }
 
     @DeleteMapping("/draft/{id}")
-    public void deleteDraft(@PathVariable Long id) {
-        postService.deleteDraft(id);
+    public ResponseEntity<Void> deleteDraft(@PathVariable Long id) {
+        try {
+            postService.deleteDraft(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+
+        }
     }
+
 }

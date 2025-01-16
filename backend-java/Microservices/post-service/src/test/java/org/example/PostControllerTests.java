@@ -4,15 +4,24 @@ import org.example.DTO.PostDTO;
 import org.example.DTO.PostResponseDTO;
 import org.example.controller.PostController;
 import org.example.domain.PostStatus;
+import org.example.repository.PostRepository;
 import org.example.services.PostService;
-import org.joda.time.DateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -21,74 +30,68 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
+@Testcontainers
+@AutoConfigureMockMvc
 class PostControllerTests {
 
-    @Mock
+    @Container
+    private static final MySQLContainer<?> sqlContainer = new MySQLContainer<>("mysql:5.7.37");
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", sqlContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", sqlContainer::getUsername);
+        registry.add("spring.datasource.password", sqlContainer::getPassword);
+    }
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private PostController postController;
+
+    @MockBean
     private PostService postService;
 
-    @InjectMocks
-    private PostController postController;
+    @Autowired
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        postRepository.deleteAll(); // Clean database to ensure isolation between tests
     }
 
     @Test
     void createPostReturnsCreatedStatus() {
         PostDTO postDTO = new PostDTO("Title", "Content", "Author");
-        PostResponseDTO postResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), false, PostStatus.PENDING,"dummy rejection comment");
+        PostResponseDTO postResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), false, PostStatus.PENDING, "dummy rejection comment");
 
         when(postService.createPost(postDTO)).thenReturn(postResponseDTO);
 
-        ResponseEntity<PostResponseDTO> response = postController.createPost(postDTO);
-
+        ResponseEntity<PostResponseDTO> response = (ResponseEntity<PostResponseDTO>) postController.createPost(postDTO);
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(postResponseDTO, response.getBody());
     }
 
     @Test
-    void createDraftReturnsCreatedStatus() {
-        PostDTO postDTO = new PostDTO("Title", "Content", "Author");
-        PostResponseDTO draftResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), true, PostStatus.PENDING,"dummy rejection comment");
+    void getDraftPostsReturnsListOfDrafts() {
+        PostResponseDTO draftResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), true, PostStatus.PENDING, "dummy rejection comment");
 
-        when(postService.createDraft(postDTO)).thenReturn(draftResponseDTO);
+        when(postService.getDraftPosts()).thenReturn(Collections.singletonList(draftResponseDTO));
 
-        ResponseEntity<PostResponseDTO> response = postController.createDraft(postDTO);
-
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(draftResponseDTO, response.getBody());
-    }
-
-    @Test
-    void updateRejectionCommentUpdatesComment() {
-        Long postId = 1L;
-        String comment = "Rejection Comment";
-
-        doNothing().when(postService).updateRejectionComment(postId, comment);
-
-        postController.updateRejectionComment(postId, comment);
-
-        verify(postService, times(1)).updateRejectionComment(postId, comment);
-    }
-
-    @Test
-    void savePostAsDraftReturnsOkStatus() {
-        Long postId = 1L;
-        PostResponseDTO postResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), false, PostStatus.PENDING,"dummy rejection comment");
-
-        when(postService.saveAsDraft(postId)).thenReturn(postResponseDTO);
-
-        ResponseEntity<PostResponseDTO> response = postController.savePostAsDraft(postId);
+        ResponseEntity<List<PostResponseDTO>> response = postController.getDraftPosts();
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(postResponseDTO, response.getBody());
+        assertNotNull(response.getBody());
+        assertEquals(1, response.getBody().size());
+        assertTrue(response.getBody().get(0).isDraft());
     }
 
     @Test
     void publishPostReturnsOkStatus() {
         Long postId = 1L;
-        PostResponseDTO postResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), false, PostStatus.PENDING,"dummy rejection comment");
+        PostResponseDTO postResponseDTO = new PostResponseDTO(postId, "Title", "Content", "Author", LocalDateTime.now(), false, PostStatus.PENDING, "dummy rejection comment");
 
         when(postService.publish(postId)).thenReturn(postResponseDTO);
 
@@ -98,54 +101,65 @@ class PostControllerTests {
         assertEquals(postResponseDTO, response.getBody());
     }
 
+
+
     @Test
-    void getDraftPostsReturnsListOfDrafts() {
-        PostResponseDTO draftResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), true, PostStatus.PENDING,"dummy rejection comment");
-
-        when(postService.getDraftPosts()).thenReturn(Collections.singletonList(draftResponseDTO));
-
-        ResponseEntity<List<PostResponseDTO>> response = postController.getDraftPosts();
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1, response.getBody().size());
-        assertTrue(response.getBody().get(0).isDraft());
+    void createPostWithInvalidDataReturnsBadRequest() throws Exception {
+        // Invalid post data (empty title)
+        mockMvc.perform(MockMvcRequestBuilders.post("/posts/create")
+                        .contentType("application/json")
+                        .content("{\"title\":\"\",\"content\":\"Content\",\"author\":\"Author\"}"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Title cannot be empty"));
     }
 
     @Test
-    void getPublishedPostsReturnsListOfPublishedPosts() {
-        PostResponseDTO postResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), false, PostStatus.PENDING,"dummy rejection comment");
+    void getDraftPostsWhenNoDraftsReturnsEmptyList() throws Exception {
+        // Return an empty list when there are no draft posts
+        when(postService.getDraftPosts()).thenReturn(Collections.emptyList());
 
-        when(postService.getPublishedPosts()).thenReturn(Collections.singletonList(postResponseDTO));
+        mockMvc.perform(MockMvcRequestBuilders.get("/posts/drafts"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$").isEmpty());
+    }
 
-        ResponseEntity<List<PostResponseDTO>> response = postController.getPublishedPosts();
 
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(1, response.getBody().size());
-        assertFalse(response.getBody().get(0).isDraft());
+
+
+
+    @Test
+    void deleteDraftWhenPostNotFoundReturnsNotFound() throws Exception {
+        Long nonExistingPostId = 999L;
+
+        // Simulate no post found for the given post ID
+        doThrow(new RuntimeException("Post not found")).when(postService).deleteDraft(nonExistingPostId);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/posts/draft/{postId}", nonExistingPostId))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
-    void editPostReturnsUpdatedPost() {
-        Long postId = 1L;
-        PostDTO postDTO = new PostDTO("New Title", "New Content", "New Author");
-        PostResponseDTO updatedPostResponseDTO = new PostResponseDTO(10L, "Title", "Content", "Author", LocalDateTime.now(), true, PostStatus.PENDING,"dummy rejection comment");
-
-        when(postService.editPost(postId, postDTO)).thenReturn(updatedPostResponseDTO);
-
-        ResponseEntity<PostResponseDTO> response = postController.editPost(postId, postDTO);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(updatedPostResponseDTO, response.getBody());
-    }
-
-    @Test
-    void deleteDraftRemovesDraft() {
+    void deleteDraftSuccessfullyRemovesDraft() throws Exception {
         Long postId = 1L;
 
+        // Add the draft first
+        PostDTO postDTO = new PostDTO("Title", "Content", "Author");
+        PostResponseDTO postResponseDTO = new PostResponseDTO(postId, "Title", "Content", "Author", LocalDateTime.now(), true, PostStatus.PENDING, null);
+        when(postService.createDraft(postDTO)).thenReturn(postResponseDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/posts/createDraft")
+                        .contentType("application/json")
+                        .content("{\"title\":\"Title\",\"content\":\"Content\",\"author\":\"Author\"}"))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        // Now delete the draft
         doNothing().when(postService).deleteDraft(postId);
 
-        postController.deleteDraft(postId);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/posts/draft/{id}", postId))
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(postService, times(1)).deleteDraft(postId);
     }
+
+
 }

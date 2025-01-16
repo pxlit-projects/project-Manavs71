@@ -1,13 +1,11 @@
 package org.example.controller;
 
+import org.example.Exception.ReviewServiceException;
 import org.example.domain.Review;
 import org.example.service.ReviewService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.Console;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/review")
@@ -27,11 +25,11 @@ public class ReviewController {
         try {
             Review approvedReview = reviewService.approvePost(postId, reviewer);
             return ResponseEntity.ok(approvedReview);
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 
+        } catch (ReviewServiceException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error approving post: " + e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred while approving the post.");
         }
     }
 
@@ -43,10 +41,10 @@ public class ReviewController {
         try {
             Review rejectedReview = reviewService.rejectPost(postId, reviewer, comment);
             return ResponseEntity.ok(rejectedReview);
-        } catch (IllegalStateException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (ReviewServiceException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error rejecting post: " + e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An unexpected error occurred while rejecting the post.");
         }
     }
 }

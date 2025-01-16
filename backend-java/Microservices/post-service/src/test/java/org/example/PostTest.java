@@ -6,7 +6,10 @@ import org.example.domain.Post;
 import org.example.domain.PostStatus;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
@@ -15,8 +18,18 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+@SpringBootTest
+@Testcontainers
 class PostTest {
+    @Container
+    private static MySQLContainer<?> sqlContainer = new MySQLContainer<>("mysql:5.7.37");
 
+    @DynamicPropertySource
+    static void registerMySQLProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", sqlContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", sqlContainer::getUsername);
+        registry.add("spring.datasource.password", sqlContainer::getPassword);
+    }
 
     @Test
     void createPostWithValidData() {

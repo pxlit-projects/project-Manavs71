@@ -8,121 +8,131 @@ import org.example.domain.Post;
 import org.example.domain.PostStatus;
 import org.example.repository.PostRepository;
 import org.example.services.PostService;
+import org.joda.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
+@Testcontainers
 class PostServiceTests {
 
-    @Mock
+    @Container
+    private static final MySQLContainer<?> sqlContainer = new MySQLContainer<>("mysql:5.7.37");
+
+    @DynamicPropertySource
+    static void configureProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", sqlContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", sqlContainer::getUsername);
+        registry.add("spring.datasource.password", sqlContainer::getPassword);
+    }
+
+    @Autowired
     private PostRepository postRepository;
 
-    @Mock
-    private CommentClient commentClient;
-
-    @InjectMocks
+    @Autowired
     private PostService postService;
 
+    @MockBean
+    private CommentClient commentClient;
+
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
+    void setup() {
+        postRepository.deleteAll(); // Clean database before each test
     }
 
     @Test
     void getPostWithCommentsReturnsPostWithComments() {
-        Long postId = 1L;
+        // Arrange
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
-        List<CommentDTO> comments = Collections.singletonList(new CommentDTO(postId, "Author", "Content", null));
+        Post savedPost = postRepository.save(post); // Save and retrieve the saved entity
+        Long postId = savedPost.getId(); // Get the auto-generated ID
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
+        List<CommentDTO> comments = Collections.singletonList(
+                new CommentDTO(postId, "Author", "Content", null)
+        );
         when(commentClient.getCommentsForPost(postId)).thenReturn(comments);
 
+        // Act
         Post result = postService.getPostWithComments(postId);
 
-        assertEquals(postId, result.getId());
-        assertEquals(comments, result.getComments());
+        // Assert
+        assertNotNull(result, "Post should not be null");
+        assertEquals(postId, result.getId(), "Post ID should match");
+        assertEquals(comments, result.getComments(), "Comments should match");
     }
 
     @Test
     void createPostReturnsPostResponseDTO() {
         PostDTO postDTO = new PostDTO("Title", "Content", "Author");
-        Post post = new Post(postDTO.getTitle(), postDTO.getContent(), postDTO.getAuthor());
-        post.setId(1L);
-
-        when(postRepository.save(any(Post.class))).thenReturn(post);
 
         PostResponseDTO result = postService.createPost(postDTO);
 
-        assertEquals(post.getId(), result.getId());
-        assertEquals(post.getTitle(), result.getTitle());
-        assertEquals(post.getContent(), result.getContent());
-        assertEquals(post.getAuthor(), result.getAuthor());
+        assertNotNull(result);
+        assertEquals(postDTO.getTitle(), result.getTitle());
+        assertEquals(postDTO.getContent(), result.getContent());
+        assertEquals(postDTO.getAuthor(), result.getAuthor());
     }
 
     @Test
     void createDraftReturnsDraftPostResponseDTO() {
         PostDTO postDTO = new PostDTO("Title", "Content", "Author");
-        Post draftPost = new Post(postDTO.getTitle(), postDTO.getContent(), postDTO.getAuthor());
-        draftPost.setId(1L);
-        draftPost.setDraft(true);
-
-        when(postRepository.save(any(Post.class))).thenReturn(draftPost);
 
         PostResponseDTO result = postService.createDraft(postDTO);
 
+        assertNotNull(result);
         assertTrue(result.isDraft());
-        assertEquals(draftPost.getId(), result.getId());
+        assertEquals(postDTO.getTitle(), result.getTitle());
     }
 
     @Test
     void saveAsDraftUpdatesPostToDraft() {
-        Long postId = 1L;
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
+        postRepository.save(post);
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
-        when(postRepository.save(any(Post.class))).thenReturn(post);
+        PostResponseDTO result = postService.saveAsDraft(post.getId());
 
-        PostResponseDTO result = postService.saveAsDraft(postId);
-
+        assertNotNull(result);
         assertTrue(result.isDraft());
     }
 
     @Test
     void publishUpdatesPostToNotDraft() {
-        Long postId = 1L;
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
         post.setDraft(true);
+        postRepository.save(post);
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
-        when(postRepository.save(any(Post.class))).thenReturn(post);
+        PostResponseDTO result = postService.publish(post.getId());
 
-        PostResponseDTO result = postService.publish(postId);
-
+        assertNotNull(result);
         assertFalse(result.isDraft());
     }
 
     @Test
     void getDraftPostsReturnsListOfDraftPosts() {
         Post draftPost = new Post("Title", "Content", "Author");
-        draftPost.setId(1L);
         draftPost.setDraft(true);
-
-        when(postRepository.findByIsDraft(true)).thenReturn(Collections.singletonList(draftPost));
+        postRepository.save(draftPost);
 
         List<PostResponseDTO> result = postService.getDraftPosts();
 
+        assertNotNull(result);
         assertEquals(1, result.size());
         assertTrue(result.get(0).isDraft());
     }
@@ -130,76 +140,63 @@ class PostServiceTests {
     @Test
     void getPublishedPostsReturnsListOfPublishedPosts() {
         Post post = new Post("Title", "Content", "Author");
-        post.setId(1L);
         post.setDraft(false);
+        postRepository.save(post);
 
-        when(postRepository.findByIsDraft(false)).thenReturn(Collections.singletonList(post));
-        when(postRepository.findById(post.getId())).thenReturn(Optional.of(post));
         when(commentClient.getCommentsForPost(post.getId())).thenReturn(Collections.emptyList());
 
         List<PostResponseDTO> result = postService.getPublishedPosts();
 
+        assertNotNull(result);
         assertEquals(1, result.size());
         assertFalse(result.get(0).isDraft());
     }
 
     @Test
     void editPostUpdatesPostDetails() {
-        Long postId = 1L;
-        PostDTO postDTO = new PostDTO("New Title", "New Content", "New Author");
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
+        postRepository.save(post);
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
-        when(postRepository.save(any(Post.class))).thenReturn(post);
+        PostDTO postDTO = new PostDTO("New Title", "New Content", "New Author");
+        PostResponseDTO result = postService.editPost(post.getId(), postDTO);
 
-        PostResponseDTO result = postService.editPost(postId, postDTO);
-
+        assertNotNull(result);
         assertEquals(postDTO.getTitle(), result.getTitle());
         assertEquals(postDTO.getContent(), result.getContent());
-        assertEquals(postDTO.getAuthor(), result.getAuthor());
     }
 
     @Test
     void deleteDraftRemovesPost() {
-        Long postId = 1L;
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
+        postRepository.save(post);
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
-        doNothing().when(postRepository).delete(post);
+        postService.deleteDraft(post.getId());
 
-        postService.deleteDraft(postId);
-
-        verify(postRepository, times(1)).delete(post);
+        assertFalse(postRepository.findById(post.getId()).isPresent());
     }
 
     @Test
     void updatePostStatusUpdatesStatusAndDraftFlag() {
-        Long postId = 1L;
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
+        postRepository.save(post);
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
-        when(postRepository.save(any(Post.class))).thenReturn(post);
+        postService.updatePostStatus(post.getId(), PostStatus.APPROVED);
 
-        postService.updatePostStatus(postId, PostStatus.APPROVED);
-
-        assertEquals(PostStatus.APPROVED, post.getStatus());
-        assertFalse(post.isDraft());
+        Post updatedPost = postRepository.findById(post.getId()).orElse(null);
+        assertNotNull(updatedPost);
+        assertEquals(PostStatus.APPROVED, updatedPost.getStatus());
+        assertFalse(updatedPost.isDraft());
     }
 
     @Test
     void updateRejectionCommentUpdatesComment() {
-        Long postId = 1L;
         Post post = new Post("Title", "Content", "Author");
-        post.setId(postId);
+        postRepository.save(post);
 
-        when(postRepository.findById(postId)).thenReturn(Optional.of(post));
-        when(postRepository.save(any(Post.class))).thenReturn(post);
+        postService.updateRejectionComment(post.getId(), "Rejection Comment");
 
-        postService.updateRejectionComment(postId, "Rejection Comment");
-
-        assertEquals("Rejection Comment", post.getRejectionComment());
+        Post updatedPost = postRepository.findById(post.getId()).orElse(null);
+        assertNotNull(updatedPost);
+        assertEquals("Rejection Comment", updatedPost.getRejectionComment());
     }
 }

@@ -49,6 +49,27 @@ public class PostResponseDTO {
     }
 
     // Getters and Setters
+
+
+    public String getTitle() {
+        return title;
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+
+    public String getAuthor() {
+        return author;
+    }
+
+
+    public boolean isDraft() {
+        return isDraft;
+    }
+
     public Long getId() {
         return id;
     }
@@ -57,24 +78,12 @@ public class PostResponseDTO {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getContent() {
-        return content;
-    }
-
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getAuthor() {
-        return author;
     }
 
     public void setAuthor(String author) {
@@ -87,10 +96,6 @@ public class PostResponseDTO {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public boolean isDraft() {
-        return isDraft;
     }
 
     public void setDraft(boolean draft) {

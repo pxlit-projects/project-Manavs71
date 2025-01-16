@@ -7,11 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="config-server" />
-        <module name="post-service" />
         <module name="messaging-service" />
+        <module name="post-service" />
         <module name="comment-service" />
-        <module name="review-service" />
         <module name="gateway-service" />
+        <module name="review-service" />
         <module name="discovery-service" />
       </profile>
     </annotationProcessing>

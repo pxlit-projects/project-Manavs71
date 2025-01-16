@@ -125,4 +125,6 @@ public class Post {
     public void setRejectionComment(String rejectionComment) {
         this.rejectionComment = rejectionComment;
     }
+
+
 }

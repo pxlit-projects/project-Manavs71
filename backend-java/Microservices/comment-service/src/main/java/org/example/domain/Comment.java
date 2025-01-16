@@ -3,6 +3,7 @@ package org.example.domain;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name = "comments")
@@ -72,5 +73,7 @@ public class Comment {
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
-    
+
+
+
 }

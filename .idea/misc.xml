@@ -5,6 +5,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/backend-java/Microservices/pom.xml" />
+        <option value="$PROJECT_DIR$/backend-java/Microservices/comment-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

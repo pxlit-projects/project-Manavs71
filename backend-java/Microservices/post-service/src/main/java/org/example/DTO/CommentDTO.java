@@ -21,7 +21,6 @@ public class CommentDTO {
         this.createdDate = createdDate;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -61,5 +60,4 @@ public class CommentDTO {
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
     }
-
 }

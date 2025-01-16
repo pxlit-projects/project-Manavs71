@@ -66,4 +66,6 @@ public class PostDTO {
     public void setRejectionComment(String rejectionComment) {
         this.rejectionComment = rejectionComment;
     }
+
+
 }

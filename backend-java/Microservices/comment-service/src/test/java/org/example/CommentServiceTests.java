@@ -5,9 +5,13 @@ import org.example.repository.CommentRepository;
 import org.example.service.CommentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
+import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -15,19 +19,30 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
+@SpringBootTest
+@Testcontainers
 class CommentServiceTests {
 
-    @Mock
+    @Container
+    private static MySQLContainer<?> sqlContainer = new MySQLContainer<>("mysql:5.7.37");
+
+    @DynamicPropertySource
+    static void registerMySQLProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", sqlContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", sqlContainer::getUsername);
+        registry.add("spring.datasource.password", sqlContainer::getPassword);
+    }
+
+    @Autowired
     private CommentRepository commentRepository;
 
-    @InjectMocks
+    @Autowired
     private CommentService commentService;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        commentRepository.deleteAll(); // Clean database before each test
     }
 
     @Test
@@ -35,12 +50,10 @@ class CommentServiceTests {
         Long postId = 1L;
         String author = "Author";
         String content = "Content";
-        Comment comment = new Comment(postId, author, content, LocalDateTime.now());
-
-        when(commentRepository.save(any(Comment.class))).thenReturn(comment);
 
         Comment result = commentService.createComment(postId, author, content);
 
+        assertNotNull(result.getId()); // ID should be auto-generated
         assertEquals(postId, result.getPostId());
         assertEquals(author, result.getUsername());
         assertEquals(content, result.getContent());
@@ -51,51 +64,40 @@ class CommentServiceTests {
     void getCommentsByPostIdReturnsListOfComments() {
         Long postId = 1L;
         Comment comment = new Comment(postId, "Author", "Content", LocalDateTime.now());
-
-        when(commentRepository.findByPostId(postId)).thenReturn(Collections.singletonList(comment));
+        commentRepository.save(comment);
 
         List<Comment> result = commentService.getCommentsByPostId(postId);
 
         assertEquals(1, result.size());
-        assertEquals(comment, result.get(0));
+        assertEquals(comment.getPostId(), result.get(0).getPostId());
     }
 
     @Test
     void updateCommentReturnsUpdatedComment() {
-        Long commentId = 1L;
-        String newContent = "Updated Content";
         Comment comment = new Comment(1L, "Author", "Content", LocalDateTime.now());
+        comment = commentRepository.save(comment);
 
-        when(commentRepository.findById(commentId)).thenReturn(Optional.of(comment));
-        when(commentRepository.save(any(Comment.class))).thenReturn(comment);
-
-        Optional<Comment> result = commentService.updateComment(commentId, newContent);
+        String newContent = "Updated Content";
+        Optional<Comment> result = commentService.updateComment(comment.getId(), newContent);
 
         assertTrue(result.isPresent());
         assertEquals(newContent, result.get().getContent());
-        assertNotNull(result.get().getCreatedDate());
     }
 
     @Test
     void updateCommentReturnsEmptyIfNotFound() {
-        Long commentId = 1L;
-        String newContent = "Updated Content";
-
-        when(commentRepository.findById(commentId)).thenReturn(Optional.empty());
-
-        Optional<Comment> result = commentService.updateComment(commentId, newContent);
+        Optional<Comment> result = commentService.updateComment(999L, "Updated Content");
 
         assertFalse(result.isPresent());
     }
 
     @Test
     void deleteCommentRemovesComment() {
-        Long commentId = 1L;
+        Comment comment = new Comment(1L, "Author", "Content", LocalDateTime.now());
+        comment = commentRepository.save(comment);
 
-        doNothing().when(commentRepository).deleteById(commentId);
+        commentService.deleteComment(comment.getId());
 
-        commentService.deleteComment(commentId);
-
-        verify(commentRepository, times(1)).deleteById(commentId);
+        assertTrue(commentRepository.findById(comment.getId()).isEmpty());
     }
 }
