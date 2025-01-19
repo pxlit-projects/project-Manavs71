@@ -1,142 +1,118 @@
-2025-01-16 11:47:02 [main] INFO  o.e.MessagingServiceApplication - Starting MessagingServiceApplication using Java 21 with PID 26340 (D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71\backend-java\Microservices\messaging-service\target\classes started by singh in D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71)
-2025-01-16 11:47:02 [main] INFO  o.e.MessagingServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-01-16 11:47:02 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Fetching config from server at : http://localhost:8088/
-2025-01-16 11:47:02 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Located environment: name=messaging-service, profiles=[default], label=null, version=null, state=null
-2025-01-16 11:47:02 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=226f7ed5-2298-389f-b7b8-2aa1466d6932
-2025-01-16 11:47:02 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2025-01-16 11:47:02 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2025-01-16 11:47:04 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
-2025-01-16 11:47:05 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
-2025-01-16 11:47:05 [main] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
-2025-01-16 11:47:05 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2025-01-16 11:47:05 [main] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
-2025-01-16 11:47:05 [main] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
-2025-01-16 11:47:05 [main] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1737024425924 with initial instances count: 0
-2025-01-16 11:47:05 [main] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application MESSAGING-SERVICE with eureka with status UP
-2025-01-16 11:47:05 [main] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737024425926, current=UP, previous=STARTING]
-2025-01-16 11:47:05 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
-2025-01-16 11:47:05 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:05 [main] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: java.net.ConnectException: Connection refused: no further information
-2025-01-16 11:47:05 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:05 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
-org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
-	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
-	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:622)
-	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
-	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
-	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2249)
-	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2222)
-	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2202)
-	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:467)
-	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:451)
-	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1960)
-	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1924)
-	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1479)
-	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: java.net.ConnectException: Connection refused: no further information
-	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
-	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-	at java.base/java.net.Socket.connect(Socket.java:751)
-	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61)
-	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1249)
-	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
-	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:668)
-	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:637)
-	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:584)
-	... 12 common frames omitted
-2025-01-16 11:47:05 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:05 [main] INFO  o.e.MessagingServiceApplication - Started MessagingServiceApplication in 5.336 seconds (process running for 5.864)
-2025-01-16 11:47:06 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
-2025-01-16 11:47:10 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
-2025-01-16 11:47:10 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4a9b92c6: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
-2025-01-16 11:47:10 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:10 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
-2025-01-16 11:47:10 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:16 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
-2025-01-16 11:47:16 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@44a27fcf: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
-2025-01-16 11:47:16 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:16 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
-2025-01-16 11:47:16 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:21 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
-2025-01-16 11:47:21 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6eca67de: tags=[[]], channel=null, acknowledgeMode=AUTO local queue size=0
-2025-01-16 11:47:21 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:21 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
-2025-01-16 11:47:21 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:47:23 [SpringApplicationShutdownHook] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application MESSAGING-SERVICE with eureka with status DOWN
-2025-01-16 11:47:23 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737024443585, current=DOWN, previous=UP]
-2025-01-16 11:47:23 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
-2025-01-16 11:47:23 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
-2025-01-16 11:47:23 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
-2025-01-16 11:47:23 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
-2025-01-16 11:47:23 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
-2025-01-16 11:47:23 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
-2025-01-16 11:47:23 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - deregister  status: 200
-2025-01-16 11:47:23 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
-2025-01-16 11:52:27 [main] INFO  o.e.MessagingServiceApplication - Starting MessagingServiceApplication using Java 21 with PID 26140 (D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71\backend-java\Microservices\messaging-service\target\classes started by singh in D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71)
-2025-01-16 11:52:27 [main] INFO  o.e.MessagingServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-01-16 11:52:27 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Fetching config from server at : http://localhost:8088/
-2025-01-16 11:52:27 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Located environment: name=messaging-service, profiles=[default], label=null, version=null, state=null
-2025-01-16 11:52:27 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=226f7ed5-2298-389f-b7b8-2aa1466d6932
-2025-01-16 11:52:27 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2025-01-16 11:52:27 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2025-01-16 11:52:29 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
-2025-01-16 11:52:30 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
-2025-01-16 11:52:30 [main] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
-2025-01-16 11:52:30 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2025-01-16 11:52:30 [main] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
-2025-01-16 11:52:30 [main] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
-2025-01-16 11:52:30 [main] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1737024750562 with initial instances count: 0
-2025-01-16 11:52:30 [main] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application MESSAGING-SERVICE with eureka with status UP
-2025-01-16 11:52:30 [main] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737024750566, current=UP, previous=STARTING]
-2025-01-16 11:52:30 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
-2025-01-16 11:52:30 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:52:30 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#3a4aadf8:0/SimpleConnection@754de353 [delegate=amqp://guest@127.0.0.1:5672/, localPort=62811]
-2025-01-16 11:52:30 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
-2025-01-16 11:52:30 [main] INFO  o.e.MessagingServiceApplication - Started MessagingServiceApplication in 5.491 seconds (process running for 6.191)
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: false
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2025-01-16 11:53:00 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2025-01-16 11:57:30 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2025-01-16 11:58:50 [SpringApplicationShutdownHook] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application MESSAGING-SERVICE with eureka with status DOWN
-2025-01-16 11:58:50 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737025130034, current=DOWN, previous=UP]
-2025-01-16 11:58:50 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
-2025-01-16 11:58:50 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
-2025-01-16 11:58:50 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
-2025-01-16 11:58:50 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
-2025-01-16 11:58:50 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8061/eureka/} exception=I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
+2025-01-18 12:37:19 [main] INFO  o.e.MessagingServiceApplication - Starting MessagingServiceApplication using Java 21 with PID 14000 (D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71\backend-java\Microservices\messaging-service\target\classes started by singh in D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71)
+2025-01-18 12:37:19 [main] INFO  o.e.MessagingServiceApplication - No active profile set, falling back to 1 default profile: "default"
+2025-01-18 12:37:19 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Fetching config from server at : http://localhost:8088/
+2025-01-18 12:37:19 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Located environment: name=messaging-service, profiles=[default], label=null, version=null, state=null
+2025-01-18 12:37:20 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=226f7ed5-2298-389f-b7b8-2aa1466d6932
+2025-01-18 12:37:20 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
+2025-01-18 12:37:20 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2025-01-18 12:37:22 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+2025-01-18 12:37:23 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
+2025-01-18 12:37:23 [main] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
+2025-01-18 12:37:23 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
+2025-01-18 12:37:23 [main] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
+2025-01-18 12:37:23 [main] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
+2025-01-18 12:37:23 [main] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2025-01-18 12:37:24 [main] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+2025-01-18 12:37:24 [main] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
+2025-01-18 12:37:24 [main] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
+2025-01-18 12:37:24 [main] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1737200244075 with initial instances count: 0
+2025-01-18 12:37:24 [main] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application MESSAGING-SERVICE with eureka with status UP
+2025-01-18 12:37:24 [main] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737200244079, current=UP, previous=STARTING]
+2025-01-18 12:37:24 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
+2025-01-18 12:37:24 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2025-01-18 12:37:24 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#3e33b52e:0/SimpleConnection@4bfa5eb9 [delegate=amqp://guest@127.0.0.1:5672/, localPort=54825]
+2025-01-18 12:37:24 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
+2025-01-18 12:37:24 [main] INFO  o.e.MessagingServiceApplication - Started MessagingServiceApplication in 7.572 seconds (process running for 9.686)
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: false
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
+2025-01-18 12:37:54 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
+2025-01-18 12:42:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 12:47:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 12:52:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 12:57:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:02:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:07:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:12:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:17:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:22:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:27:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:32:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:37:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:42:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:47:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 13:52:23 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 14:23:56 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 14:28:56 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 14:33:56 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 14:51:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 14:56:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:01:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:06:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:11:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:16:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:21:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:26:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:31:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:36:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:41:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:46:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:51:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 15:56:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:01:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:06:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:11:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:16:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:21:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:26:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:31:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:36:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:41:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:46:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:51:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 16:56:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:01:48 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:06:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:11:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:16:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:21:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:26:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:31:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:36:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:41:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:46:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:51:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 17:56:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:01:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:06:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:11:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:16:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:21:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:26:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:31:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:36:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:41:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:46:49 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
+2025-01-18 18:47:55 [SpringApplicationShutdownHook] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application MESSAGING-SERVICE with eureka with status DOWN
+2025-01-18 18:47:55 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737222475680, current=DOWN, previous=UP]
+2025-01-18 18:47:55 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
+2025-01-18 18:47:55 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
+2025-01-18 18:47:55 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
+2025-01-18 18:47:56 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
+2025-01-18 18:47:56 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8061/eureka/} exception=I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
 	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:915)
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:895)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:790)
@@ -216,8 +192,8 @@ Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http:
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:889)
 	... 36 more
 
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8061/eureka/}, exception=I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8061/eureka/}, exception=I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
 	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:915)
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:895)
 	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:790)
@@ -298,8 +274,8 @@ Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http:
 	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:889)
 	... 37 more
 
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - de-registration failedCannot execute request on any known server
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - de-registration failedCannot execute request on any known server
 com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
 	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112)
 	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
@@ -330,249 +306,4 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
 	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-01-16 11:58:53 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
-2025-01-16 11:59:28 [main] INFO  o.e.MessagingServiceApplication - Starting MessagingServiceApplication using Java 21 with PID 17808 (D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71\backend-java\Microservices\messaging-service\target\classes started by singh in D:\PXL\3TIN\FULLSTACK JAVA\project-Manavs71)
-2025-01-16 11:59:28 [main] INFO  o.e.MessagingServiceApplication - No active profile set, falling back to 1 default profile: "default"
-2025-01-16 11:59:28 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Fetching config from server at : http://localhost:8088/
-2025-01-16 11:59:28 [main] INFO  o.s.c.c.c.ConfigServerConfigDataLoader - Located environment: name=messaging-service, profiles=[default], label=null, version=null, state=null
-2025-01-16 11:59:29 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=226f7ed5-2298-389f-b7b8-2aa1466d6932
-2025-01-16 11:59:29 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig' of type [org.springframework.cloud.client.loadbalancer.LoadBalancerAutoConfiguration$DeferringLoadBalancerInterceptorConfig] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). The currently created BeanPostProcessor [lbRestClientPostProcessor] is declared through a non-static factory method on that class; consider declaring it as static instead.
-2025-01-16 11:59:29 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'deferringLoadBalancerInterceptor' of type [org.springframework.cloud.client.loadbalancer.DeferringLoadBalancerInterceptor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [lbRestClientPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
-2025-01-16 11:59:30 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
-2025-01-16 11:59:31 [main] INFO  o.s.cloud.commons.util.InetUtils - Cannot determine local hostname
-2025-01-16 11:59:31 [main] INFO  o.s.c.n.e.c.DiscoveryClientOptionalArgsConfiguration - Eureka HTTP Client uses RestTemplate.
-2025-01-16 11:59:31 [main] WARN  o.s.c.l.c.LoadBalancerCacheAutoConfiguration$LoadBalancerCaffeineWarnLogger - Spring Cloud LoadBalancer is currently working with the default cache. While this cache implementation is useful for development and tests, it's recommended to use Caffeine cache in production.You can switch to using Caffeine cache, by adding it and org.springframework.cache.caffeine.CaffeineCacheManager to the classpath.
-2025-01-16 11:59:32 [main] INFO  o.s.c.n.eureka.InstanceInfoFactory - Setting initial instance status as: STARTING
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Initializing Eureka in region us-east-1
-2025-01-16 11:59:32 [main] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: true
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Starting heartbeat executor: renew interval is: 30
-2025-01-16 11:59:32 [main] INFO  c.n.discovery.InstanceInfoReplicator - InstanceInfoReplicator onDemand update allowed rate per min is 4
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Discovery Client initialized at timestamp 1737025172348 with initial instances count: 0
-2025-01-16 11:59:32 [main] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Registering application MESSAGING-SERVICE with eureka with status UP
-2025-01-16 11:59:32 [main] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737025172353, current=UP, previous=STARTING]
-2025-01-16 11:59:32 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
-2025-01-16 11:59:32 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
-2025-01-16 11:59:32 [main] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#3a4aadf8:0/SimpleConnection@754de353 [delegate=amqp://guest@127.0.0.1:5672/, localPort=63383]
-2025-01-16 11:59:32 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
-2025-01-16 11:59:32 [main] INFO  o.e.MessagingServiceApplication - Started MessagingServiceApplication in 5.82 seconds (process running for 6.543)
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Disable delta property : false
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Single vip registry refresh property : null
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Force full registry fetch : false
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Application is null : false
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Registered Applications size is zero : true
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Application version is -1: false
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - Getting all instance registry info from the eureka server
-2025-01-16 12:00:02 [DiscoveryClient-CacheRefreshExecutor-%d] INFO  c.netflix.discovery.DiscoveryClient - The response status is 200
-2025-01-16 12:04:32 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2025-01-16 12:09:32 [AsyncResolver-bootstrap-executor-%d] INFO  c.n.d.s.r.aws.ConfigClusterResolver - Resolving eureka endpoints via configuration
-2025-01-16 12:12:22 [SpringApplicationShutdownHook] INFO  o.s.c.n.e.s.EurekaServiceRegistry - Unregistering application MESSAGING-SERVICE with eureka with status DOWN
-2025-01-16 12:12:22 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Saw local status change event StatusChangeEvent [timestamp=1737025942601, current=DOWN, previous=UP]
-2025-01-16 12:12:22 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041: registering service...
-2025-01-16 12:12:22 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
-2025-01-16 12:12:22 [DiscoveryClient-InstanceInfoReplicator-%d] INFO  c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - registration status: 204
-2025-01-16 12:12:23 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
-2025-01-16 12:12:23 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Shutting down DiscoveryClient ...
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Unregistering ...
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8061/eureka/} exception=I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:915)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:895)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:790)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:672)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.cancel(RestTemplateEurekaHttpClient.java:87)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:91)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:76)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:919)
-	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:900)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
-	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1202)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1195)
-	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1195)
-	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1156)
-	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1102)
-	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
-	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
-	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
-	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-	at java.base/java.net.Socket.connect(Socket.java:751)
-	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.lambda$connectSocket$0(PlainConnectionSocketFactory.java:91)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
-	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:90)
-	at org.apache.hc.client5.http.socket.ConnectionSocketFactory.connectSocket(ConnectionSocketFactory.java:123)
-	at org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:189)
-	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:450)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:162)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:172)
-	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:142)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:113)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:116)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
-	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:99)
-	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:112)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$3(RestTemplateTransportClientFactory.java:170)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:88)
-	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:72)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:889)
-	... 36 more
-
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] INFO  c.n.d.s.t.d.RedirectingEurekaHttpClient - Request execution error. endpoint=DefaultEndpoint{ serviceUrl='http://localhost:8061/eureka/}, exception=I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information stacktrace=org.springframework.web.client.ResourceAccessException: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-	at org.springframework.web.client.RestTemplate.createResourceAccessException(RestTemplate.java:915)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:895)
-	at org.springframework.web.client.RestTemplate.execute(RestTemplate.java:790)
-	at org.springframework.web.client.RestTemplate.exchange(RestTemplate.java:672)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateEurekaHttpClient.cancel(RestTemplateEurekaHttpClient.java:87)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.executeOnNewServer(RedirectingEurekaHttpClient.java:121)
-	at com.netflix.discovery.shared.transport.decorator.RedirectingEurekaHttpClient.execute(RedirectingEurekaHttpClient.java:80)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:120)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:76)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:919)
-	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:900)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
-	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1202)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1195)
-	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1195)
-	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1156)
-	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1102)
-	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
-	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
-	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-Caused by: org.apache.hc.client5.http.HttpHostConnectException: Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
-	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:682)
-	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542)
-	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592)
-	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
-	at java.base/java.net.Socket.connect(Socket.java:751)
-	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.lambda$connectSocket$0(PlainConnectionSocketFactory.java:91)
-	at java.base/java.security.AccessController.doPrivileged(AccessController.java:571)
-	at org.apache.hc.client5.http.socket.PlainConnectionSocketFactory.connectSocket(PlainConnectionSocketFactory.java:90)
-	at org.apache.hc.client5.http.socket.ConnectionSocketFactory.connectSocket(ConnectionSocketFactory.java:123)
-	at org.apache.hc.client5.http.impl.io.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:189)
-	at org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:450)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:162)
-	at org.apache.hc.client5.http.impl.classic.InternalExecRuntime.connectEndpoint(InternalExecRuntime.java:172)
-	at org.apache.hc.client5.http.impl.classic.ConnectExec.execute(ConnectExec.java:142)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ProtocolExec.execute(ProtocolExec.java:192)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.HttpRequestRetryExec.execute(HttpRequestRetryExec.java:113)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.ContentCompressionExec.execute(ContentCompressionExec.java:152)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.RedirectExec.execute(RedirectExec.java:116)
-	at org.apache.hc.client5.http.impl.classic.ExecChainElement.execute(ExecChainElement.java:51)
-	at org.apache.hc.client5.http.impl.classic.InternalHttpClient.doExecute(InternalHttpClient.java:170)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:87)
-	at org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute(CloseableHttpClient.java:55)
-	at org.apache.hc.client5.http.classic.HttpClient.executeOpen(HttpClient.java:183)
-	at org.springframework.http.client.HttpComponentsClientHttpRequest.executeInternal(HttpComponentsClientHttpRequest.java:99)
-	at org.springframework.http.client.AbstractStreamingClientHttpRequest.executeInternal(AbstractStreamingClientHttpRequest.java:70)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:112)
-	at org.springframework.cloud.netflix.eureka.http.RestTemplateTransportClientFactory.lambda$restTemplate$3(RestTemplateTransportClientFactory.java:170)
-	at org.springframework.http.client.InterceptingClientHttpRequest$InterceptingRequestExecution.execute(InterceptingClientHttpRequest.java:88)
-	at org.springframework.http.client.InterceptingClientHttpRequest.executeInternal(InterceptingClientHttpRequest.java:72)
-	at org.springframework.http.client.AbstractBufferingClientHttpRequest.executeInternal(AbstractBufferingClientHttpRequest.java:48)
-	at org.springframework.http.client.AbstractClientHttpRequest.execute(AbstractClientHttpRequest.java:66)
-	at org.springframework.web.client.RestTemplate.doExecute(RestTemplate.java:889)
-	... 37 more
-
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] WARN  c.n.d.s.t.d.RetryableEurekaHttpClient - Request execution failed with message: I/O error on DELETE request for "http://localhost:8061/eureka/apps/MESSAGING-SERVICE/localhost:messaging-service:8041": Connect to http://localhost:8061 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: no further information
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] ERROR c.netflix.discovery.DiscoveryClient - DiscoveryClient_MESSAGING-SERVICE/localhost:messaging-service:8041 - de-registration failedCannot execute request on any known server
-com.netflix.discovery.shared.transport.TransportException: Cannot execute request on any known server
-	at com.netflix.discovery.shared.transport.decorator.RetryableEurekaHttpClient.execute(RetryableEurekaHttpClient.java:112)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator$2.execute(EurekaHttpClientDecorator.java:74)
-	at com.netflix.discovery.shared.transport.decorator.SessionedEurekaHttpClient.execute(SessionedEurekaHttpClient.java:76)
-	at com.netflix.discovery.shared.transport.decorator.EurekaHttpClientDecorator.cancel(EurekaHttpClientDecorator.java:71)
-	at com.netflix.discovery.DiscoveryClient.unregister(DiscoveryClient.java:919)
-	at com.netflix.discovery.DiscoveryClient.shutdown(DiscoveryClient.java:900)
-	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMethod.invoke(InitDestroyAnnotationBeanPostProcessor.java:457)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeDestroyMethods(InitDestroyAnnotationBeanPostProcessor.java:415)
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeDestruction(InitDestroyAnnotationBeanPostProcessor.java:239)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:202)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.run(DisposableBeanAdapter.java:195)
-	at org.springframework.cloud.context.scope.GenericScope$BeanLifecycleWrapper.destroy(GenericScope.java:389)
-	at org.springframework.cloud.context.scope.GenericScope.destroy(GenericScope.java:136)
-	at org.springframework.beans.factory.support.DisposableBeanAdapter.destroy(DisposableBeanAdapter.java:211)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroyBean(DefaultSingletonBeanRegistry.java:587)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingleton(DefaultSingletonBeanRegistry.java:559)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingleton(DefaultListableBeanFactory.java:1202)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.destroySingletons(DefaultSingletonBeanRegistry.java:520)
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.destroySingletons(DefaultListableBeanFactory.java:1195)
-	at org.springframework.context.support.AbstractApplicationContext.destroyBeans(AbstractApplicationContext.java:1195)
-	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1156)
-	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1102)
-	at org.springframework.boot.SpringApplicationShutdownHook.closeAndWait(SpringApplicationShutdownHook.java:145)
-	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
-	at org.springframework.boot.SpringApplicationShutdownHook.run(SpringApplicationShutdownHook.java:114)
-	at java.base/java.lang.Thread.run(Thread.java:1583)
-2025-01-16 12:12:26 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient
+2025-01-18 18:47:59 [SpringApplicationShutdownHook] INFO  c.netflix.discovery.DiscoveryClient - Completed shut down of DiscoveryClient

@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {HttpTestingController, provideHttpClientTesting} from '@angular/common/http/testing';
 import { PostService, PostDTO, PostResponseDTO, PostStatus } from '../post.service';
 import { environment } from '../../../environment';
+import {provideHttpClient} from "@angular/common/http";
 
 describe('PostService', () => {
   let service: PostService;
@@ -9,263 +10,155 @@ describe('PostService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [PostService]
+      providers: [PostService,provideHttpClient(),provideHttpClientTesting()], // Provide the service
     });
     service = TestBed.inject(PostService);
     httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    httpMock.verify();
+    httpMock.verify(); // Ensure no unmatched requests
   });
 
-  it('should create a new post', () => {
-    const post: PostDTO = { title: 'Test Post', content: 'Test Content', author: 'Author' };
-    const response: PostResponseDTO = {
-      id: 1,
-      title: 'Test Post',
-      content: 'Test Content',
-      author: 'Author',
-      createdDate: '2025-01-12T18:05:16',
-      isDraft: false,
-      postStatus: PostStatus.PENDING,
-      comments: [],
-      newCommentContent: '',
-      showComments: false,
-      rejectionComment: ''
-    };
+  const mockPost: PostResponseDTO = {
+    id: 1,
+    title: 'Mock Post',
+    content: 'Mock Content',
+    author: 'Mock Author',
+    createdDate: '2023-10-01T00:00:00Z',
+    isDraft: false,
+    postStatus: PostStatus.APPROVED,
+    comments: [],
+    newCommentContent: '',
+    showComments: false,
+    rejectionComment: '',
+  };
 
-    service.createPost(post).subscribe(res => {
-      expect(res).toEqual(response);
+  const mockPosts: PostResponseDTO[] = [mockPost];
+
+  // Test for createPost
+  it('should create a new post', () => {
+    const newPost: PostDTO = { title: 'New Post', content: 'Content', author: 'Author' };
+
+    service.createPost(newPost).subscribe((res) => {
+      expect(res).toEqual(mockPost);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/create`);
     expect(req.request.method).toBe('POST');
-    req.flush(response);
+    expect(req.request.body).toEqual(newPost);
+    req.flush(mockPost);
   });
 
-  it('should create a new draft post', () => {
-    const post: PostDTO = { title: 'Draft Post', content: 'Draft Content', author: 'Author' };
-    const response: PostResponseDTO = {
-      id: 2,
-      title: 'Draft Post',
-      content: 'Draft Content',
-      author: 'Author',
-      createdDate: '2025-01-12T18:05:16',
-      isDraft: true,
-      postStatus: PostStatus.PENDING,
-      comments: [],
-      newCommentContent: '',
-      showComments: false,
-      rejectionComment: ''
-    };
+  it('should create a draft post', () => {
+    const draftPost: PostDTO = { title: 'Draft Post', content: 'Draft Content', author: 'Draft Author' };
 
-    service.createDraft(post).subscribe(res => {
-      expect(res).toEqual(response);
+    service.createDraft(draftPost).subscribe((res) => {
+      expect(res).toEqual(mockPost);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/createDraft`);
     expect(req.request.method).toBe('POST');
-    req.flush(response);
+    expect(req.request.body).toEqual(draftPost);
+    req.flush(mockPost);
   });
 
+  // Test for getDraftPosts
   it('should fetch draft posts', () => {
-    const response: PostResponseDTO[] = [
-      {
-        id: 1,
-        title: 'Draft Post 1',
-        content: 'Content 1',
-        author: 'Author 1',
-        createdDate: '2025-01-12T18:05:16',
-        isDraft: true,
-        postStatus: PostStatus.PENDING,
-        comments: [],
-        newCommentContent: '',
-        showComments: false,
-        rejectionComment: ''
-      }
-    ];
-
-    service.getDraftPosts().subscribe(res => {
-      expect(res).toEqual(response);
+    service.getDraftPosts().subscribe((res) => {
+      expect(res).toEqual(mockPosts);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/drafts`);
     expect(req.request.method).toBe('GET');
-    req.flush(response);
+    req.flush(mockPosts);
   });
 
+  // Test for getPublishedPosts
   it('should fetch published posts', () => {
-    const response: PostResponseDTO[] = [
-      {
-        id: 1,
-        title: 'Published Post 1',
-        content: 'Content 1',
-        author: 'Author 1',
-        createdDate: '2025-01-12T18:05:16',
-        isDraft: false,
-        postStatus: PostStatus.APPROVED,
-        comments: [],
-        newCommentContent: '',
-        showComments: false,
-        rejectionComment: ''
-      }
-    ];
-
-    service.getPublishedPosts().subscribe(res => {
-      expect(res).toEqual(response);
+    service.getPublishedPosts().subscribe((res) => {
+      expect(res).toEqual(mockPosts);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/published`);
     expect(req.request.method).toBe('GET');
-    req.flush(response);
+    req.flush(mockPosts);
   });
 
+  // Test for getApprovedPosts
   it('should fetch approved posts', () => {
-    const response: PostResponseDTO[] = [
-      {
-        id: 1,
-        title: 'Approved Post 1',
-        content: 'Content 1',
-        author: 'Author 1',
-        createdDate: '2025-01-12T18:05:16',
-        isDraft: false,
-        postStatus: PostStatus.APPROVED,
-        comments: [],
-        newCommentContent: '',
-        showComments: false,
-        rejectionComment: ''
-      },
-      {
-        id: 2,
-        title: 'Pending Post 1',
-        content: 'Content 2',
-        author: 'Author 2',
-        createdDate: '2025-01-12T18:05:16',
-        isDraft: false,
-        postStatus: PostStatus.PENDING,
-        comments: [],
-        newCommentContent: '',
-        showComments: false,
-        rejectionComment: ''
-      }
+    const approvedPost: PostResponseDTO = { ...mockPost, postStatus: PostStatus.APPROVED };
+    const mockPostsWithDifferentStatuses: PostResponseDTO[] = [
+      approvedPost,
+      { ...mockPost, postStatus: PostStatus.REJECTED },
     ];
 
-    service.getApprovedPosts().subscribe(res => {
-      expect(res.length).toBe(1);
-      expect(res[0].postStatus).toBe(PostStatus.APPROVED);
+    service.getApprovedPosts().subscribe((res) => {
+      expect(res).toEqual([approvedPost]); // Should only return approved posts
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/published`);
     expect(req.request.method).toBe('GET');
-    req.flush(response);
+    req.flush(mockPostsWithDifferentStatuses);
   });
 
+  // Test for editPost
   it('should edit a post', () => {
-    const post: PostDTO = { title: 'Edited Post', content: 'Edited Content', author: 'Author' };
-    const response: PostResponseDTO = {
-      id: 1,
-      title: 'Edited Post',
-      content: 'Edited Content',
-      author: 'Author',
-      createdDate: '2025-01-12T18:05:16',
-      isDraft: false,
-      postStatus: PostStatus.PENDING,
-      comments: [],
-      newCommentContent: '',
-      showComments: false,
-      rejectionComment: ''
-    };
+    const updatedPost: PostDTO = { title: 'Updated Post', content: 'Updated Content', author: 'Updated Author' };
 
-    service.editPost(1, post).subscribe(res => {
-      expect(res).toEqual(response);
+    service.editPost(1, updatedPost).subscribe((res) => {
+      expect(res).toEqual(mockPost);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/edit/1`);
     expect(req.request.method).toBe('PUT');
-    req.flush(response);
+    expect(req.request.body).toEqual(updatedPost);
+    req.flush(mockPost);
   });
 
+
+  // Test for deletePost
   it('should delete a post', () => {
-    service.deletePost(1).subscribe(res => {
+    service.deletePost(1).subscribe((res) => {
       expect(res).toBeNull();
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/draft/1`);
     expect(req.request.method).toBe('DELETE');
-    req.flush(null);
+    req.flush(null); // No response body for delete
   });
 
+  // Test for savePostAsDraft
   it('should save a post as draft', () => {
-    const response: PostResponseDTO = {
-      id: 1,
-      title: 'Draft Post',
-      content: 'Draft Content',
-      author: 'Author',
-      createdDate: '2025-01-12T18:05:16',
-      isDraft: true,
-      postStatus: PostStatus.PENDING,
-      comments: [],
-      newCommentContent: '',
-      showComments: false,
-      rejectionComment: ''
-    };
-
-    service.savePostAsDraft(1).subscribe(res => {
-      expect(res).toEqual(response);
+    service.savePostAsDraft(1).subscribe((res) => {
+      expect(res).toEqual(mockPost);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/draft/1`);
     expect(req.request.method).toBe('POST');
-    req.flush(response);
+    req.flush(mockPost);
   });
 
+  // Test for publishPost
   it('should publish a post', () => {
-    const response: PostResponseDTO = {
-      id: 1,
-      title: 'Published Post',
-      content: 'Published Content',
-      author: 'Author',
-      createdDate: '2025-01-12T18:05:16',
-      isDraft: false,
-      postStatus: PostStatus.APPROVED,
-      comments: [],
-      newCommentContent: '',
-      showComments: false,
-      rejectionComment: ''
-    };
-
-    service.publishPost(1).subscribe(res => {
-      expect(res).toEqual(response);
+    service.publishPost(1).subscribe((res) => {
+      expect(res).toEqual(mockPost);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/publish/1`);
     expect(req.request.method).toBe('POST');
-    req.flush(response);
+    req.flush(mockPost);
   });
 
+  // Test for updatePost
   it('should update a post', () => {
-    const response: PostResponseDTO = {
-      id: 1,
-      title: 'Updated Post',
-      content: 'Updated Content',
-      author: 'Author',
-      createdDate: '2025-01-12T18:05:16',
-      isDraft: false,
-      postStatus: PostStatus.PENDING,
-      comments: [],
-      newCommentContent: '',
-      showComments: false,
-      rejectionComment: ''
-    };
-
-    service.updatePost(1).subscribe(res => {
-      expect(res).toEqual(response);
+    service.updatePost(1).subscribe((res) => {
+      expect(res).toEqual(mockPost);
     });
 
     const req = httpMock.expectOne(`${environment.postServiceUrl}/posts/edit/1`);
     expect(req.request.method).toBe('PUT');
-    req.flush(response);
+    req.flush(mockPost);
   });
+
 });

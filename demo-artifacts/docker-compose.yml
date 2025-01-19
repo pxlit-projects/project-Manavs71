@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   app:
-    build:
-      context: ../frontend-web/news-flow-app
+    build: ../frontend-web/news-flow-app
     ports:
       - "80:80"

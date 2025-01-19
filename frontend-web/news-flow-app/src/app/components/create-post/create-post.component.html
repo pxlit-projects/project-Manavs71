@@ -23,7 +23,6 @@
 
     <div class="button-group">
       <button type="submit" class="btn btn-primary w-50 me-2" [disabled]="postForm.invalid">{{ isEditMode ? 'Update Post' : 'Publish Post' }}</button>
-
       <!-- Show 'Save as Draft' only if not in edit mode -->
       <button *ngIf="!isEditMode" type="button" class="btn btn-secondary w-50" (click)="saveAsDraft()" [disabled]="postForm.invalid">Save as Draft</button>
     </div>

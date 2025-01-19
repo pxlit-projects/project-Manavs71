@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PostResponseDTO, PostService, PostStatus} from "../../services/post.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -23,6 +23,8 @@ import {AuthService} from "../../services/auth.service";
   templateUrl: './create-post.component.html',
   styleUrls: ['./create-post.component.css']
 })
+
+
 export class CreatePostComponent implements OnInit {
   post: PostResponseDTO = { title: '', content: '', author: '', id: 0, createdDate: '', isDraft: false , postStatus: PostStatus.PENDING, comments: [], newCommentContent: '', showComments: false, rejectionComment: ''};
   isEditMode: boolean = false;

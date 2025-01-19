@@ -30,9 +30,6 @@ public class ReviewService {
         // Fetch all reviews for the given post
         List<Review> existingReviews = reviewRepository.findReviewsByPostId(postId);
 
-        if (existingReviews.isEmpty()) {
-            throw new ReviewServiceException("No reviews found for post with ID " + postId);
-        }
 
         // Get the latest review
         Optional<Review> latestReview = existingReviews.stream()
